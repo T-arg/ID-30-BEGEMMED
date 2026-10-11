@@ -7,7 +7,7 @@
 void stateMenuIntro()
 {
   globalCounter++;
-  sprites.drawSelfMasked(34, 4, T_arg, 0);
+  sprites.drawSelfMasked(49, 20, T_arg, 0);
   if (globalCounter > 180)
   {
     globalCounter = 0;
@@ -18,10 +18,10 @@ void stateMenuIntro()
 void stateMenuMain()
 {
   for (byte i = 0; i < 4; i++) sprites.drawSelfMasked(32 * i, 0, splashScreen, i);
-  sprites.drawSelfMasked(0, 48, mainMenu, menuSelection - 2);
-  sprites.drawSelfMasked(64, 48, mainMenu, menuSelection - 2 + 6);
+  sprites.drawSelfMasked(0, 48, mainMenu, menuSelection - 3);
+  sprites.drawSelfMasked(64, 48, mainMenu, menuSelection - 3 + 5);
   if (arduboy.justPressed(RIGHT_BUTTON) && (menuSelection < 5))menuSelection++;
-  if (arduboy.justPressed(LEFT_BUTTON) && (menuSelection > 2))menuSelection--;
+  if (arduboy.justPressed(LEFT_BUTTON) && (menuSelection > 3))menuSelection--;
   if (arduboy.justPressed(A_BUTTON | B_BUTTON)) gameState = menuSelection;
 }
 
@@ -44,8 +44,8 @@ void stateMenuSoundfx()
 {
   arduboy.clear();
   for (byte i = 0; i < 4; i++) sprites.drawSelfMasked(32 * i, 0, splashScreen, i);
-  sprites.drawSelfMasked(0, 48, mainMenu, 4 + arduboy.audio.enabled());
-  sprites.drawSelfMasked(64, 48, mainMenu, 6 + 4 + arduboy.audio.enabled());
+  sprites.drawSelfMasked(0, 48, mainMenu, 3 + arduboy.audio.enabled());
+  sprites.drawSelfMasked(64, 48, mainMenu, 5 + 3 + arduboy.audio.enabled());
   if (arduboy.justPressed(RIGHT_BUTTON)) arduboy.audio.on();;
   if (arduboy.justPressed(LEFT_BUTTON)) arduboy.audio.off();
   if (arduboy.justPressed(A_BUTTON | B_BUTTON))

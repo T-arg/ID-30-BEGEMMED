@@ -1,9 +1,9 @@
 /*
-  Begemmed: http://www.team-arg.org/bgem-manual.html
+  Begemmed: https://t-arg.github.io/ID-30-BEGEMMED/
 
-  Arduboy version 1.4:  http://www.team-arg.org/bgem-downloads.html
+  Arduboy version 1.4:  https://github.com/T-arg/ID-30-BEGEMMED
 
-  MADE by TEAM a.r.g. : http://www.team-arg.org/more-about.html
+  MADE by TEAM a.r.g. : https://t-arg.github.io/
 
   2015 - JO3RI
 
