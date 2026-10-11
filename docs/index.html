@@ -302,6 +302,21 @@
       color: #5d4c4b;
     }
 
+    .gem-mode { margin: 0 0 14px; }
+
+    .gem-mode h3 { color: #5d4c4b; font-size: 15px; margin-bottom: 6px; }
+
+    .gem-row { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .gem-row img {
+      width: 48px;
+      height: 48px;
+      border: 1px solid #5d4c4b;
+      border-radius: 3px;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+    }
+
     .links-row {
       margin-top: 28px;
       font-size: 14px;
@@ -427,9 +442,9 @@
           </div>
         </div>
         <p class="kbd-hint">
-          <kbd>↑</kbd> <kbd>↓</kbd> <kbd>←</kbd> <kbd>→</kbd> move ·
-          <kbd>A</kbd> / <kbd>Z</kbd> A button ·
-          <kbd>B</kbd> / <kbd>S</kbd> / <kbd>X</kbd> B button
+          <kbd>↑</kbd> <kbd>↓</kbd> <kbd>←</kbd> <kbd>→</kbd> move / switch ·
+          <kbd>B</kbd> / <kbd>S</kbd> / <kbd>X</kbd> select / deselect ·
+          <kbd>A</kbd> / <kbd>Z</kbd> pause
         </p>
         <div class="bmc-wrap">
           <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="TEAMarg" data-color="#5d4c4b" data-emoji="☕" data-font="Cookie" data-text="Cool game? Buy us a coffee" data-outline-color="#fefefd" data-font-color="#fefefd" data-coffee-color="#FFDD00"></script>
@@ -438,8 +453,63 @@
 
       <h2>The game</h2>
       <p>
-        Manual coming soon.
+        Begemmed is another tile-matching puzzle game. Get three or more matching gems in a row, by swapping adjacent gems, while the timer runs empty. With every match you make, your timer refills a bit. Your game is over when you run out of time. Try to get the highest score possible!
       </p>
+
+      <h2>How to play</h2>
+      <p>
+        When the game begins, you’ll see a selector blinking around just 1 gem on the playfield. Now you are able to move your selector in the playfield. Once you are in the right place, you can press the select/deselect button. As a result you’ll see the selector blink around the adjacent gems. All you have to do is press the directional pad, to choose what adjacent gem you want to switch places with.
+      </p>
+      <p>
+        If the switch results in a row of equal gems, they will disappear. The gems above the open spot(s) will fall down and new ones will appear at the top, falling down. This will continue until the whole playfield has been filled up again.
+      </p>
+      <p>
+        If the switch doesn’t result in a row of equal gems, nothing will happen. Maybe you pressed the wrong direction, or maybe you want to select another gem. If so, you’ll have to deselect the current gem, by pressing the select/deselect button once more.
+      </p>
+      <p>
+        For every gem you clear, you’ll get 5 points, so a row of 3 gives you 15 points, a row of 4 = 20 points and a row of 5 = 25 points. For every combo you make in one switch, you’ll be rewarded with an extra 100 points.
+      </p>
+
+      <h2>Gems</h2>
+      <p>
+        Before the game starts, you can either pick easy mode with 6 different gems, normal mode with 7 and the hard mode with 8 different gems.
+      </p>
+      <div class="gem-mode">
+        <h3>Easy mode · 6 gems</h3>
+        <div class="gem-row">
+          <img src="images/gem-1.png" alt="Gem 1">
+          <img src="images/gem-2.png" alt="Gem 2">
+          <img src="images/gem-3.png" alt="Gem 3">
+          <img src="images/gem-4.png" alt="Gem 4">
+          <img src="images/gem-5.png" alt="Gem 5">
+          <img src="images/gem-6.png" alt="Gem 6">
+        </div>
+      </div>
+      <div class="gem-mode">
+        <h3>Normal mode · 7 gems</h3>
+        <div class="gem-row">
+          <img src="images/gem-1.png" alt="Gem 1">
+          <img src="images/gem-2.png" alt="Gem 2">
+          <img src="images/gem-3.png" alt="Gem 3">
+          <img src="images/gem-4.png" alt="Gem 4">
+          <img src="images/gem-5.png" alt="Gem 5">
+          <img src="images/gem-6.png" alt="Gem 6">
+          <img src="images/gem-7.png" alt="Gem 7">
+        </div>
+      </div>
+      <div class="gem-mode">
+        <h3>Hard mode · 8 gems</h3>
+        <div class="gem-row">
+          <img src="images/gem-1.png" alt="Gem 1">
+          <img src="images/gem-2.png" alt="Gem 2">
+          <img src="images/gem-3.png" alt="Gem 3">
+          <img src="images/gem-4.png" alt="Gem 4">
+          <img src="images/gem-5.png" alt="Gem 5">
+          <img src="images/gem-6.png" alt="Gem 6">
+          <img src="images/gem-7.png" alt="Gem 7">
+          <img src="images/gem-8.png" alt="Gem 8">
+        </div>
+      </div>
 
       <p class="links-row">
         Source and hex:
