@@ -25,12 +25,14 @@ void stateMenuPlay()
   for (byte i = 0; i < 4; i++) sprites.drawSelfMasked(32 * i, 0, splashScreen, i);
   for (byte i = 0; i < 2; i++) sprites.drawSelfMasked(64 * i, 48, tubes, i);
   sprites.drawSelfMasked(33, 52, gameWords, gameMode - 1);
-  if (arduboy.justPressed(RIGHT_BUTTON) && (gameMode < 3)) gameMode++;
-  if (arduboy.justPressed(LEFT_BUTTON) && (gameMode > 1)) gameMode--;
+  if (arduboy.justPressed(RIGHT_BUTTON) && (gameMode < 3)) { gameMode++; sfx(sfxMove); }
+  if (arduboy.justPressed(LEFT_BUTTON) && (gameMode > 1)) { gameMode--; sfx(sfxMove); }
   if (arduboy.justPressed(A_BUTTON | B_BUTTON))
   {
     arduboy.clear();
     gameState = STATE_GAME_PLAYING;
+    musicPickGameTune();                                      // a random in-game tune for this game
+    sfx(sfxSelect);
   }
 };
 
@@ -38,7 +40,11 @@ void stateMenuPlay()
 
 void stateGamePlaying()
 {
-  if (arduboy.everyXFrames(45)) timer--;
+  if (arduboy.everyXFrames(scorePlayer > 2500 ? 50 : 100 - scorePlayer / 50))   // slow at the start (100 frames per step), faster with the score (50 frames)
+  {
+    timer--;
+    if (timer >= 0 && timer < 5) sfx(sfxTick);                // time is running out
+  }
   if (timer < 0)
   {
     gameState = STATE_GAME_OVER;
@@ -86,6 +92,7 @@ void stateGamePause()
   {
     arduboy.clear();
     gameState = STATE_GAME_PLAYING;
+    sfx(sfxPause);
   }
 }
 

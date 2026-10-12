@@ -46,6 +46,8 @@ void drawbackground()
 
 };
 
+bool hideFlagged = false;
+
 void drawField()
 {
   Serial.println();
@@ -53,8 +55,8 @@ void drawField()
   {
     for (int x = 0 ; x < PLAYFIELD_WIDTH; x++)
     {
-      // draw every tile in the playfield
-      sprites.drawPlusMask((x * GEM_PIXELS) + PLAYFIELD_ZERO_X, (y * GEM_PIXELS) + PLAYFIELD_ZERO_Y, gemsSmall_plus_mask,field[x][y]);
+      // draw every tile in the playfield (the flagged ones show the white empty tile while they blink)
+      sprites.drawPlusMask((x * GEM_PIXELS) + PLAYFIELD_ZERO_X, (y * GEM_PIXELS) + PLAYFIELD_ZERO_Y, gemsSmall_plus_mask, (hideFlagged && fieldFlags[x][y] == FLAG_ON_FIELD) ? GEM_FREE : field[x][y]);
     }
   }
 }
@@ -120,7 +122,7 @@ void drawScore(int scoreX, int scoreY, byte sizeScore)
         sprites.drawSelfMasked(scoreX + (pad * 9) + (9 * i), scoreY, numbersSmall, digit);
         break;
       case SCORE_BIG:
-        sprites.drawSelfMasked(scoreX + (pad * 8) + (8 * i), scoreY, numbersBig, 0);
+        sprites.drawSelfMasked(scoreX + (pad * 8) + (8 * i), scoreY, numbersBig, digit);
         break;
     }
   }
@@ -234,8 +236,24 @@ void addNewGems()
   }
 }
 
+void updateStage();
+
 void deleteGems()
 {
+  byte flagged = 0;                                      // matched gems blink first (the timer is standing still: the game waits here)
+  for (byte i = 0; i < PLAYFIELD_WIDTH * PLAYFIELD_HEIGHT; i++) flagged |= (&fieldFlags[0][0])[i] == FLAG_ON_FIELD;
+  if (flagged)
+  {
+    for (byte i = 0; i < 6; i++)
+    {
+      hideFlagged = i & 1;
+      arduboy.clear();
+      updateStage();
+      arduboy.display();
+      delay(70);
+    }
+    hideFlagged = false;
+  }
   for (int x = 0; x < PLAYFIELD_WIDTH; x++)
   {
     for (int y = 0; y < PLAYFIELD_HEIGHT; y++)
@@ -255,9 +273,8 @@ void deleteGems()
   {
     scorePlayer += extraScoreForChain;
     extraScoreForChain += 100;
-    sound.tone(440, 100);
+    sfx(extraScoreForChain > 200 ? sfxMatch3 : extraScoreForChain > 100 ? sfxMatch2 : sfxMatch1);
     delay(100);
-    sound.tone(1047, 200);
   }
   giveExtraScore = false;
   removeFlag();
@@ -344,7 +361,7 @@ void switchGem(int directionToSwitch)
   sprites.drawPlusMask((selectorXpos * GEM_PIXELS) + PLAYFIELD_ZERO_X, ((selectorYpos + 1) * GEM_PIXELS) + PLAYFIELD_ZERO_Y, gemsSmall_plus_mask,0);
   sprites.drawPlusMask((selectorXpos * GEM_PIXELS) + PLAYFIELD_ZERO_X, ((selectorYpos - 1) * GEM_PIXELS) + PLAYFIELD_ZERO_Y, gemsSmall_plus_mask,0);
   testingSwitch = 0;
-  if (modeIsSelected == true) sound.tone(330, 25);
+  if (modeIsSelected == true) sfx(sfxNope);                   // the switch made no match
 }
 
 void updateStage()

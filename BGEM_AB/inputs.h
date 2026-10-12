@@ -7,6 +7,7 @@
 
 void checkInputs()
 {
+  int oldX = selectorXpos, oldY = selectorYpos;
   if (arduboy.justPressed(UP_BUTTON) && (modeIsSelected == false) && (selectorYpos > 0))selectorYpos--;
   if (arduboy.justPressed(DOWN_BUTTON) && (modeIsSelected == false) && (selectorYpos < PLAYFIELD_HEIGHT - 1))selectorYpos++;
   if (arduboy.justPressed(LEFT_BUTTON) && (modeIsSelected == false) && (selectorXpos > 0))selectorXpos--;
@@ -17,11 +18,17 @@ void checkInputs()
   if (arduboy.justPressed(LEFT_BUTTON) && (modeIsSelected == true) && (selectorXpos > 0))switchGem(SWITCH_GEM_LEFT);
   if (arduboy.justPressed(RIGHT_BUTTON) && (modeIsSelected == true) && (selectorXpos < PLAYFIELD_WIDTH - 1))switchGem(SWITCH_GEM_RIGHT);
 
-  if (arduboy.justPressed(B_BUTTON))modeIsSelected = !modeIsSelected;
+  if (oldX != selectorXpos || oldY != selectorYpos) sfx(sfxMove);
+  if (arduboy.justPressed(B_BUTTON))
+  {
+    modeIsSelected = !modeIsSelected;
+    sfx(modeIsSelected ? sfxSelect : sfxDeselect);
+  }
   if (arduboy.justPressed(A_BUTTON))
   {
     arduboy.clear();
     gameState = STATE_GAME_PAUSE;
+    sfx(sfxPause);
   }
 }
 
