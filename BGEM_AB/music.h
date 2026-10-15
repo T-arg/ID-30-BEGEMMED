@@ -20,7 +20,7 @@
 #define MV(v) ((v) * MUSIC_VOL_PCT / 100)
 #define MS(n) ((uint8_t)-((((n) * MUSIC_VOL_PCT + 50) / 100) < 1 ? 1 : (((n) * MUSIC_VOL_PCT + 50) / 100)))
 
-// bytes per song:  gemTitle 405, gemClock 388, gemSteam 359, gemBrass 348, gemCave 287, gemWatch 307, gemRain 525, gemBoiler 399, gemAir 285, gemRuby 417, gemSpark 397, gemOver 23  (total 4140)
+// bytes per song:  gemTitle 315, gemClock 315, gemSteam 294, gemBrass 307, gemCave 276, gemWatch 239, gemRain 381, gemBoiler 337, gemAir 263, gemRuby 307, gemSpark 305, gemOver 23  (total 3362)
 // bytes of effects: 85
 
 // =====================================================================================================================
@@ -31,16 +31,22 @@
 // Begemmed - title screen
 // D minor, a steampunk clockwork waltz in 3/4: a music-box lead, oom-pah-pah bass and ticking gears.
 // Dm Dm Gm A | Dm F Gm A | Bb F Gm A | Dm Dm Gm A | Dm F Gm A | Bb Gm A Dm, a 24-bar loop (1152 ticks, 48 per bar). 100 % volume.
-// 405 bytes
+// 315 bytes
 // ---------------------------------------------------------------------------
-Song gemTitle[] = {          // total song in bytes = 405
-  0x06,                         // Number of tracks
+Song gemTitle[] = {          // total song in bytes = 315
+  0x0C,                         // Number of tracks
   0x00, 0x00,                   // Address of track 0   //0  gears
   0x07, 0x00,                   // Address of track 1   //7  tick
   0x1E, 0x00,                   // Address of track 2   //30  lead
-  0xAE, 0x00,                   // Address of track 3   //174  chords
-  0x17, 0x01,                   // Address of track 4   //279  bar
-  0x1E, 0x01,                   // Address of track 5   //286  bass
+  0xA5, 0x00,                   // Address of track 3   //165  chords
+  0xB7, 0x00,                   // Address of track 4   //183  bar
+  0xBE, 0x00,                   // Address of track 5   //190  bass
+  0xD4, 0x00,                   // Address of track 6   //212  sh0
+  0xDF, 0x00,                   // Address of track 7   //223  sh1
+  0xF6, 0x00,                   // Address of track 8   //246  sh2
+  0x01, 0x01,                   // Address of track 9   //257  sh3
+  0x14, 0x01,                   // Address of track 10   //276  sh4
+  0x18, 0x01,                   // Address of track 11   //280  sh5
 
   0x02,                         // Channel 0 entry track (lead)
   0x03,                         // Channel 1 entry track (chords)
@@ -69,13 +75,11 @@ Song gemTitle[] = {          // total song in bytes = 405
   ATM_DELAY(8),
   ATM_RETURN,
 
-  //"Track 2" lead  [144 bytes]
+  //"Track 2" lead  [135 bytes]
   ATM_VOL(44),
   ATM_SL_VOL((uint8_t)-2),
   ATM_NOTE_A4,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
+  ATM_GOTO(10),   // -> sh4
   ATM_NOTE_F5,
   ATM_DELAY(16),
   ATM_NOTE_E5,
@@ -87,17 +91,13 @@ Song gemTitle[] = {          // total song in bytes = 405
   ATM_NOTE_G4,
   ATM_DELAY(16),
   ATM_NOTE_A4_,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
+  ATM_GOTO(10),   // -> sh4
   ATM_NOTE_C5_,
   ATM_DELAY(24),
   ATM_NOTE_E5,
   ATM_DELAY(8),
   ATM_NOTE_A4,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
+  ATM_GOTO(10),   // -> sh4
   ATM_NOTE_F5,
   ATM_DELAY(16),
   ATM_NOTE_A5,
@@ -109,9 +109,7 @@ Song gemTitle[] = {          // total song in bytes = 405
   ATM_NOTE_C5,
   ATM_DELAY(16),
   ATM_NOTE_A4_,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
+  ATM_GOTO(10),   // -> sh4
   ATM_NOTE_G5,
   ATM_DELAY(16),
   ATM_NOTE_A5,
@@ -119,9 +117,7 @@ Song gemTitle[] = {          // total song in bytes = 405
   ATM_NOTE_E5,
   ATM_DELAY(8),
   ATM_NOTE_C5_,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
+  ATM_GOTO(10),   // -> sh4
   ATM_NOTE_F5,
   ATM_DELAY(16),
   ATM_NOTE_A5_,
@@ -135,17 +131,13 @@ Song gemTitle[] = {          // total song in bytes = 405
   ATM_NOTE_G5,
   ATM_DELAY(16),
   ATM_NOTE_A4_,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
+  ATM_GOTO(10),   // -> sh4
   ATM_NOTE_E5,
   ATM_DELAY(24),
   ATM_NOTE_C5_,
   ATM_DELAY(8),
   ATM_NOTE_A4,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
+  ATM_GOTO(10),   // -> sh4
   ATM_NOTE_A5,
   ATM_DELAY(16),
   ATM_NOTE_F5,
@@ -155,9 +147,7 @@ Song gemTitle[] = {          // total song in bytes = 405
   ATM_NOTE_F5,
   ATM_DELAY(8),
   ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
+  ATM_GOTO(10),   // -> sh4
   ATM_NOTE_G5,
   ATM_DELAY(16),
   ATM_NOTE_A4_,
@@ -191,9 +181,7 @@ Song gemTitle[] = {          // total song in bytes = 405
   ATM_NOTE_E5,
   ATM_DELAY(16),
   ATM_NOTE_F5,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
+  ATM_GOTO(10),   // -> sh4
   ATM_NOTE_A4_,
   ATM_DELAY(16),
   ATM_NOTE_G5,
@@ -212,74 +200,16 @@ Song gemTitle[] = {          // total song in bytes = 405
   ATM_DELAY(48),
   ATM_GOTO(2),   // -> lead
 
-  //"Track 3" chords  [105 bytes]
+  //"Track 3" chords  [18 bytes]
   ATM_VOL(26),
   ATM_SL_VOL((uint8_t)-1),
-  ATM_ARP(0x34, 0x24),
-  ATM_NOTE_D3,
-  ATM_DELAY(48),
-  ATM_NOTE_D3,
-  ATM_DELAY(48),
-  ATM_NOTE_G3,
-  ATM_DELAY(48),
-  ATM_ARP(0x43, 0x24),
-  ATM_NOTE_A3,
-  ATM_DELAY(48),
-  ATM_ARP(0x34, 0x24),
-  ATM_NOTE_D3,
-  ATM_DELAY(48),
-  ATM_ARP(0x43, 0x24),
+  ATM_GOTO(7),   // -> sh1
   ATM_NOTE_F3,
   ATM_DELAY(48),
-  ATM_ARP(0x34, 0x24),
-  ATM_NOTE_G3,
-  ATM_DELAY(48),
-  ATM_ARP(0x43, 0x24),
-  ATM_NOTE_A3,
-  ATM_DELAY(48),
-  ATM_NOTE_A3_,
-  ATM_DELAY(48),
-  ATM_NOTE_F3,
-  ATM_DELAY(48),
-  ATM_ARP(0x34, 0x24),
-  ATM_NOTE_G3,
-  ATM_DELAY(48),
-  ATM_ARP(0x43, 0x24),
-  ATM_NOTE_A3,
-  ATM_DELAY(48),
-  ATM_ARP(0x34, 0x24),
-  ATM_NOTE_D3,
-  ATM_DELAY(48),
-  ATM_NOTE_D3,
-  ATM_DELAY(48),
-  ATM_NOTE_G3,
-  ATM_DELAY(48),
-  ATM_ARP(0x43, 0x24),
-  ATM_NOTE_A3,
-  ATM_DELAY(48),
-  ATM_ARP(0x34, 0x24),
-  ATM_NOTE_D3,
-  ATM_DELAY(48),
-  ATM_ARP(0x43, 0x24),
-  ATM_NOTE_F3,
-  ATM_DELAY(48),
-  ATM_ARP(0x34, 0x24),
-  ATM_NOTE_G3,
-  ATM_DELAY(48),
-  ATM_ARP(0x43, 0x24),
-  ATM_NOTE_A3,
-  ATM_DELAY(48),
-  ATM_NOTE_A3_,
-  ATM_DELAY(48),
-  ATM_ARP(0x34, 0x24),
-  ATM_NOTE_G3,
-  ATM_DELAY(48),
-  ATM_ARP(0x43, 0x24),
-  ATM_NOTE_A3,
-  ATM_DELAY(48),
-  ATM_ARP(0x34, 0x24),
-  ATM_NOTE_D3,
-  ATM_DELAY(48),
+  ATM_GOTO(8),   // -> sh2
+  ATM_GOTO(7),   // -> sh1
+  ATM_GOTO(8),   // -> sh2
+  ATM_GOTO(11),   // -> sh5
   ATM_GOTO(3),   // -> chords
 
   //"Track 4" bar  [7 bytes]
@@ -291,197 +221,120 @@ Song gemTitle[] = {          // total song in bytes = 405
   ATM_DELAY(16),
   ATM_RETURN,
 
-  //"Track 5" bass  [102 bytes]
+  //"Track 5" bass  [22 bytes]
   ATM_VOL(56),
   ATM_SL_VOL((uint8_t)-2),
-  ATM_SET_TRA(0),
-  ATM_GOTO(4),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(4),   // -> bar
-  ATM_SET_TRA(5),
-  ATM_GOTO(4),   // -> bar
-  ATM_SET_TRA((uint8_t)-5),
-  ATM_GOTO(4),   // -> bar
-  ATM_SET_TRA(0),
+  ATM_GOTO(9),   // -> sh3
   ATM_GOTO(4),   // -> bar
   ATM_SET_TRA(3),
-  ATM_GOTO(4),   // -> bar
-  ATM_SET_TRA(5),
-  ATM_GOTO(4),   // -> bar
-  ATM_SET_TRA((uint8_t)-5),
-  ATM_GOTO(4),   // -> bar
-  ATM_SET_TRA((uint8_t)-4),
-  ATM_GOTO(4),   // -> bar
-  ATM_SET_TRA(3),
-  ATM_GOTO(4),   // -> bar
-  ATM_SET_TRA(5),
-  ATM_GOTO(4),   // -> bar
-  ATM_SET_TRA((uint8_t)-5),
-  ATM_GOTO(4),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(4),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(4),   // -> bar
-  ATM_SET_TRA(5),
-  ATM_GOTO(4),   // -> bar
-  ATM_SET_TRA((uint8_t)-5),
-  ATM_GOTO(4),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(4),   // -> bar
-  ATM_SET_TRA(3),
-  ATM_GOTO(4),   // -> bar
-  ATM_SET_TRA(5),
-  ATM_GOTO(4),   // -> bar
-  ATM_SET_TRA((uint8_t)-5),
-  ATM_GOTO(4),   // -> bar
-  ATM_SET_TRA((uint8_t)-4),
-  ATM_GOTO(4),   // -> bar
-  ATM_SET_TRA(5),
-  ATM_GOTO(4),   // -> bar
-  ATM_SET_TRA((uint8_t)-5),
-  ATM_GOTO(4),   // -> bar
+  ATM_GOTO(6),   // -> sh0
+  ATM_GOTO(9),   // -> sh3
+  ATM_GOTO(6),   // -> sh0
   ATM_SET_TRA(0),
   ATM_GOTO(4),   // -> bar
   ATM_GOTO(5),   // -> bass
+
+  //"Track 6" sh0  [11 bytes]
+  ATM_GOTO(4),   // -> bar
+  ATM_SET_TRA(5),
+  ATM_GOTO(4),   // -> bar
+  ATM_SET_TRA((uint8_t)-5),
+  ATM_GOTO(4),   // -> bar
+  ATM_RETURN,
+
+  //"Track 7" sh1  [23 bytes]
+  ATM_GOTO(11),   // -> sh5
+  ATM_NOTE_D3,
+  ATM_DELAY(48),
+  ATM_NOTE_G3,
+  ATM_DELAY(48),
+  ATM_ARP(0x43, 0x24),
+  ATM_NOTE_A3,
+  ATM_DELAY(48),
+  ATM_GOTO(11),   // -> sh5
+  ATM_ARP(0x43, 0x24),
+  ATM_NOTE_F3,
+  ATM_DELAY(48),
+  ATM_GOTO(8),   // -> sh2
+  ATM_NOTE_A3_,
+  ATM_DELAY(48),
+  ATM_RETURN,
+
+  //"Track 8" sh2  [11 bytes]
+  ATM_ARP(0x34, 0x24),
+  ATM_NOTE_G3,
+  ATM_DELAY(48),
+  ATM_ARP(0x43, 0x24),
+  ATM_NOTE_A3,
+  ATM_DELAY(48),
+  ATM_RETURN,
+
+  //"Track 9" sh3  [19 bytes]
+  ATM_SET_TRA(0),
+  ATM_GOTO(4),   // -> bar
+  ATM_SET_TRA(0),
+  ATM_GOTO(6),   // -> sh0
+  ATM_SET_TRA(0),
+  ATM_GOTO(4),   // -> bar
+  ATM_SET_TRA(3),
+  ATM_GOTO(6),   // -> sh0
+  ATM_SET_TRA((uint8_t)-4),
+  ATM_RETURN,
+
+  //"Track 10" sh4  [4 bytes]
+  ATM_DELAY(16),
+  ATM_NOTE_D5,
+  ATM_DELAY(16),
+  ATM_RETURN,
+
+  //"Track 11" sh5  [6 bytes]
+  ATM_ARP(0x34, 0x24),
+  ATM_NOTE_D3,
+  ATM_DELAY(48),
+  ATM_RETURN,
 
 };
 
 // ---------------------------------------------------------------------------
 // Begemmed - in game 1: Clockwork
 // C major, a ticking clockwork groove: bouncing octave bass, sparkling arpeggios, a hopping lead.
-// 388 bytes
+// 315 bytes
 // ---------------------------------------------------------------------------
-Song gemClock[] = {          // total song in bytes = 388
-  0x06,                         // Number of tracks
+Song gemClock[] = {          // total song in bytes = 315
+  0x0E,                         // Number of tracks
   0x00, 0x00,                   // Address of track 0   //0  lead
-  0xC4, 0x00,                   // Address of track 1   //196  chords
-  0xFF, 0x00,                   // Address of track 2   //255  bar
-  0x0C, 0x01,                   // Address of track 3   //268  bass
-  0x52, 0x01,                   // Address of track 4   //338  drums
-  0x59, 0x01,                   // Address of track 5   //345  pair
+  0x4B, 0x00,                   // Address of track 1   //75  chords
+  0x6E, 0x00,                   // Address of track 2   //110  bar
+  0x7B, 0x00,                   // Address of track 3   //123  bass
+  0x9D, 0x00,                   // Address of track 4   //157  drums
+  0xA4, 0x00,                   // Address of track 5   //164  pair
+  0xB5, 0x00,                   // Address of track 6   //181  sh0
+  0xC4, 0x00,                   // Address of track 7   //196  sh1
+  0xCF, 0x00,                   // Address of track 8   //207  sh2
+  0xE0, 0x00,                   // Address of track 9   //224  sh3
+  0xF0, 0x00,                   // Address of track 10   //240  sh4
+  0xFF, 0x00,                   // Address of track 11   //255  sh5
+  0x0A, 0x01,                   // Address of track 12   //266  sh6
+  0x11, 0x01,                   // Address of track 13   //273  sh7
 
   0x00,                         // Channel 0 entry track (lead)
   0x01,                         // Channel 1 entry track (chords)
   0x03,                         // Channel 2 entry track (bass)
   0x04,                         // Channel 3 entry track (drums)
 
-  //"Track 0" lead  [196 bytes]
+  //"Track 0" lead  [75 bytes]
   ATM_VOL(MV(44)),
   ATM_SL_VOL(MS(2)),
-  ATM_NOTE_C4,
-  ATM_DELAY(8),
-  ATM_NOTE_E4,
-  ATM_DELAY(8),
-  ATM_NOTE_G4,
-  ATM_DELAY(8),
-  ATM_NOTE_E4,
-  ATM_DELAY(8),
-  ATM_NOTE_C5,
+  ATM_GOTO(6),   // -> sh0
+  ATM_GOTO(11),   // -> sh5
   ATM_DELAY(16),
-  ATM_NOTE_G4,
-  ATM_DELAY(8),
-  ATM_NOTE_E4,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(8),
-  ATM_NOTE_C5,
-  ATM_DELAY(8),
-  ATM_NOTE_A4,
-  ATM_DELAY(8),
-  ATM_NOTE_C5,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(16),
-  ATM_NOTE_C5,
-  ATM_DELAY(16),
-  ATM_NOTE_F4,
-  ATM_DELAY(8),
-  ATM_NOTE_A4,
-  ATM_DELAY(8),
-  ATM_NOTE_C5,
-  ATM_DELAY(8),
-  ATM_NOTE_A4,
-  ATM_DELAY(8),
-  ATM_NOTE_F5,
-  ATM_DELAY(16),
-  ATM_NOTE_C5,
-  ATM_DELAY(8),
-  ATM_NOTE_A4,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(8),
-  ATM_NOTE_B4,
-  ATM_DELAY(8),
-  ATM_NOTE_G4,
-  ATM_DELAY(8),
-  ATM_NOTE_B4,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_B4,
-  ATM_DELAY(16),
-  ATM_NOTE_C4,
-  ATM_DELAY(8),
-  ATM_NOTE_E4,
-  ATM_DELAY(8),
-  ATM_NOTE_G4,
-  ATM_DELAY(8),
-  ATM_NOTE_E4,
-  ATM_DELAY(8),
-  ATM_NOTE_C5,
-  ATM_DELAY(16),
-  ATM_NOTE_G4,
-  ATM_DELAY(8),
-  ATM_NOTE_E4,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(8),
-  ATM_NOTE_C5,
-  ATM_DELAY(8),
-  ATM_NOTE_A4,
-  ATM_DELAY(8),
-  ATM_NOTE_C5,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(16),
-  ATM_NOTE_C5,
-  ATM_DELAY(16),
-  ATM_NOTE_F4,
-  ATM_DELAY(8),
-  ATM_NOTE_A4,
-  ATM_DELAY(8),
-  ATM_NOTE_C5,
-  ATM_DELAY(8),
-  ATM_NOTE_A4,
-  ATM_DELAY(8),
-  ATM_NOTE_F5,
-  ATM_DELAY(16),
-  ATM_NOTE_C5,
-  ATM_DELAY(8),
-  ATM_NOTE_A4,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
+  ATM_GOTO(6),   // -> sh0
   ATM_DELAY(16),
   ATM_NOTE_B4,
   ATM_DELAY(16),
   ATM_NOTE_G4,
   ATM_DELAY(32),
-  ATM_NOTE_C4,
-  ATM_DELAY(8),
-  ATM_NOTE_E4,
-  ATM_DELAY(8),
-  ATM_NOTE_G4,
-  ATM_DELAY(8),
-  ATM_NOTE_E4,
-  ATM_DELAY(8),
-  ATM_NOTE_C5,
-  ATM_DELAY(16),
-  ATM_NOTE_G4,
-  ATM_DELAY(8),
-  ATM_NOTE_E4,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(8),
+  ATM_GOTO(8),   // -> sh2
   ATM_NOTE_B4,
   ATM_DELAY(8),
   ATM_NOTE_G4,
@@ -505,31 +358,8 @@ Song gemClock[] = {          // total song in bytes = 388
   ATM_NOTE_C5,
   ATM_DELAY(8),
   ATM_NOTE_D5,
-  ATM_DELAY(8),
-  ATM_NOTE_B4,
-  ATM_DELAY(8),
-  ATM_NOTE_G4,
-  ATM_DELAY(8),
-  ATM_NOTE_B4,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_B4,
-  ATM_DELAY(16),
-  ATM_NOTE_F4,
-  ATM_DELAY(8),
-  ATM_NOTE_A4,
-  ATM_DELAY(8),
-  ATM_NOTE_C5,
-  ATM_DELAY(8),
-  ATM_NOTE_A4,
-  ATM_DELAY(8),
-  ATM_NOTE_F5,
-  ATM_DELAY(16),
-  ATM_NOTE_C5,
-  ATM_DELAY(8),
-  ATM_NOTE_A4,
-  ATM_DELAY(8),
+  ATM_GOTO(11),   // -> sh5
+  ATM_GOTO(9),   // -> sh3
   ATM_NOTE_G4,
   ATM_DELAY(8),
   ATM_NOTE_E4,
@@ -560,30 +390,12 @@ Song gemClock[] = {          // total song in bytes = 388
   ATM_DELAY(32),
   ATM_GOTO(0),   // -> lead
 
-  //"Track 1" chords  [59 bytes]
+  //"Track 1" chords  [35 bytes]
   ATM_VOL(MV(24)),
   ATM_SL_VOL(MS(1)),
   ATM_ARP(0x43, 0x23),
-  ATM_NOTE_C3,
-  ATM_DELAY(64),
-  ATM_ARP(0x34, 0x23),
-  ATM_NOTE_A3,
-  ATM_DELAY(64),
-  ATM_ARP(0x43, 0x23),
-  ATM_NOTE_F3,
-  ATM_DELAY(64),
-  ATM_NOTE_G3,
-  ATM_DELAY(64),
-  ATM_NOTE_C3,
-  ATM_DELAY(64),
-  ATM_ARP(0x34, 0x23),
-  ATM_NOTE_A3,
-  ATM_DELAY(64),
-  ATM_ARP(0x43, 0x23),
-  ATM_NOTE_F3,
-  ATM_DELAY(64),
-  ATM_NOTE_G3,
-  ATM_DELAY(64),
+  ATM_GOTO(10),   // -> sh4
+  ATM_GOTO(10),   // -> sh4
   ATM_NOTE_C3,
   ATM_DELAY(64),
   ATM_ARP(0x34, 0x23),
@@ -619,27 +431,13 @@ Song gemClock[] = {          // total song in bytes = 388
   ATM_DELAY(8),
   ATM_RETURN,
 
-  //"Track 3" bass  [70 bytes]
+  //"Track 3" bass  [34 bytes]
   ATM_VOL(MV(56)),
   ATM_SL_VOL(MS(2)),
   ATM_SET_TRA(0),
   ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-3),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-3),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
+  ATM_GOTO(13),   // -> sh7
+  ATM_GOTO(13),   // -> sh7
   ATM_SET_TRA(4),
   ATM_GOTO(2),   // -> bar
   ATM_SET_TRA((uint8_t)-3),
@@ -649,11 +447,7 @@ Song gemClock[] = {          // total song in bytes = 388
   ATM_SET_TRA(5),
   ATM_GOTO(2),   // -> bar
   ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
+  ATM_GOTO(7),   // -> sh1
   ATM_GOTO(3),   // -> bass
 
   //"Track 4" drums  [7 bytes]
@@ -661,22 +455,116 @@ Song gemClock[] = {          // total song in bytes = 388
   ATM_REPEAT(31, 5),   // 32x pair
   ATM_GOTO(4),   // -> drums
 
-  //"Track 5" pair  [26 bytes]
+  //"Track 5" pair  [17 bytes]
   ATM_VOL(MV(46)),
   ATM_SL_VOL(MS(12)),
-  ATM_DELAY(4),
-  ATM_VOL(MV(14)),
-  ATM_SL_VOL(MS(12)),
-  ATM_DELAY(8),
-  ATM_VOL(MV(14)),
-  ATM_SL_VOL(MS(12)),
-  ATM_DELAY(4),
+  ATM_GOTO(12),   // -> sh6
+  ATM_GOTO(12),   // -> sh6
   ATM_VOL(MV(26)),
   ATM_SL_VOL(MS(6)),
+  ATM_DELAY(4),
+  ATM_GOTO(12),   // -> sh6
+  ATM_DELAY(4),
+  ATM_RETURN,
+
+  //"Track 6" sh0  [15 bytes]
+  ATM_GOTO(8),   // -> sh2
+  ATM_NOTE_C5,
   ATM_DELAY(8),
+  ATM_NOTE_A4,
+  ATM_DELAY(8),
+  ATM_NOTE_C5,
+  ATM_DELAY(8),
+  ATM_NOTE_E5,
+  ATM_DELAY(16),
+  ATM_NOTE_C5,
+  ATM_GOTO(9),   // -> sh3
+  ATM_NOTE_D5,
+  ATM_RETURN,
+
+  //"Track 7" sh1  [11 bytes]
+  ATM_GOTO(2),   // -> bar
+  ATM_SET_TRA((uint8_t)-5),
+  ATM_GOTO(2),   // -> bar
+  ATM_SET_TRA(0),
+  ATM_GOTO(2),   // -> bar
+  ATM_RETURN,
+
+  //"Track 8" sh2  [17 bytes]
+  ATM_NOTE_C4,
+  ATM_DELAY(8),
+  ATM_NOTE_E4,
+  ATM_DELAY(8),
+  ATM_NOTE_G4,
+  ATM_DELAY(8),
+  ATM_NOTE_E4,
+  ATM_DELAY(8),
+  ATM_NOTE_C5,
+  ATM_DELAY(16),
+  ATM_NOTE_G4,
+  ATM_DELAY(8),
+  ATM_NOTE_E4,
+  ATM_DELAY(8),
+  ATM_NOTE_E5,
+  ATM_DELAY(8),
+  ATM_RETURN,
+
+  //"Track 9" sh3  [16 bytes]
+  ATM_DELAY(16),
+  ATM_NOTE_F4,
+  ATM_DELAY(8),
+  ATM_NOTE_A4,
+  ATM_DELAY(8),
+  ATM_NOTE_C5,
+  ATM_DELAY(8),
+  ATM_NOTE_A4,
+  ATM_DELAY(8),
+  ATM_NOTE_F5,
+  ATM_DELAY(16),
+  ATM_NOTE_C5,
+  ATM_DELAY(8),
+  ATM_NOTE_A4,
+  ATM_DELAY(8),
+  ATM_RETURN,
+
+  //"Track 10" sh4  [15 bytes]
+  ATM_NOTE_C3,
+  ATM_DELAY(64),
+  ATM_ARP(0x34, 0x23),
+  ATM_NOTE_A3,
+  ATM_DELAY(64),
+  ATM_ARP(0x43, 0x23),
+  ATM_NOTE_F3,
+  ATM_DELAY(64),
+  ATM_NOTE_G3,
+  ATM_DELAY(64),
+  ATM_RETURN,
+
+  //"Track 11" sh5  [11 bytes]
+  ATM_DELAY(8),
+  ATM_NOTE_B4,
+  ATM_DELAY(8),
+  ATM_NOTE_G4,
+  ATM_DELAY(8),
+  ATM_NOTE_B4,
+  ATM_DELAY(8),
+  ATM_NOTE_D5,
+  ATM_DELAY(16),
+  ATM_NOTE_B4,
+  ATM_RETURN,
+
+  //"Track 12" sh6  [7 bytes]
+  ATM_DELAY(4),
   ATM_VOL(MV(14)),
   ATM_SL_VOL(MS(12)),
-  ATM_DELAY(8),
+  ATM_DELAY(4),
+  ATM_RETURN,
+
+  //"Track 13" sh7  [9 bytes]
+  ATM_SET_TRA((uint8_t)-3),
+  ATM_GOTO(2),   // -> bar
+  ATM_SET_TRA(5),
+  ATM_GOTO(7),   // -> sh1
   ATM_RETURN,
 
 };
@@ -684,45 +572,37 @@ Song gemClock[] = {          // total song in bytes = 388
 // ---------------------------------------------------------------------------
 // Begemmed - in game 2: Steam Whistle
 // G major, an upbeat steam-engine chug with a whistling lead.
-// 359 bytes
+// 294 bytes
 // ---------------------------------------------------------------------------
-Song gemSteam[] = {          // total song in bytes = 359
-  0x06,                         // Number of tracks
+Song gemSteam[] = {          // total song in bytes = 294
+  0x10,                         // Number of tracks
   0x00, 0x00,                   // Address of track 0   //0  lead
-  0x9A, 0x00,                   // Address of track 1   //154  chords
-  0xCF, 0x00,                   // Address of track 2   //207  bar
-  0xE0, 0x00,                   // Address of track 3   //224  bass
-  0x26, 0x01,                   // Address of track 4   //294  drums
-  0x2D, 0x01,                   // Address of track 5   //301  pair
+  0x44, 0x00,                   // Address of track 1   //68  chords
+  0x67, 0x00,                   // Address of track 2   //103  bar
+  0x70, 0x00,                   // Address of track 3   //112  bass
+  0x8A, 0x00,                   // Address of track 4   //138  drums
+  0x91, 0x00,                   // Address of track 5   //145  pair
+  0x96, 0x00,                   // Address of track 6   //150  sh0
+  0xA1, 0x00,                   // Address of track 7   //161  sh1
+  0xB6, 0x00,                   // Address of track 8   //182  sh2
+  0xBD, 0x00,                   // Address of track 9   //189  sh3
+  0xC7, 0x00,                   // Address of track 10   //199  sh4
+  0xD3, 0x00,                   // Address of track 11   //211  sh5
+  0xDF, 0x00,                   // Address of track 12   //223  sh6
+  0xEA, 0x00,                   // Address of track 13   //234  sh7
+  0xEF, 0x00,                   // Address of track 14   //239  sh8
+  0xF8, 0x00,                   // Address of track 15   //248  sh9
 
   0x00,                         // Channel 0 entry track (lead)
   0x01,                         // Channel 1 entry track (chords)
   0x03,                         // Channel 2 entry track (bass)
   0x04,                         // Channel 3 entry track (drums)
 
-  //"Track 0" lead  [154 bytes]
+  //"Track 0" lead  [68 bytes]
   ATM_VOL(MV(44)),
   ATM_SL_VOL(MS(2)),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_B4,
-  ATM_DELAY(16),
-  ATM_NOTE_G5,
-  ATM_DELAY(16),
-  ATM_NOTE_G5,
-  ATM_DELAY(8),
-  ATM_NOTE_A5,
-  ATM_DELAY(8),
-  ATM_NOTE_G5,
-  ATM_DELAY(16),
-  ATM_NOTE_E5,
-  ATM_DELAY(16),
+  ATM_GOTO(9),   // -> sh3
+  ATM_GOTO(10),   // -> sh4
   ATM_NOTE_B4,
   ATM_DELAY(8),
   ATM_NOTE_D5,
@@ -739,42 +619,9 @@ Song gemSteam[] = {          // total song in bytes = 359
   ATM_DELAY(16),
   ATM_NOTE_D5,
   ATM_DELAY(32),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
+  ATM_GOTO(9),   // -> sh3
+  ATM_GOTO(6),   // -> sh0
   ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_B4,
-  ATM_DELAY(16),
-  ATM_NOTE_G5,
-  ATM_DELAY(16),
-  ATM_NOTE_G5,
-  ATM_DELAY(8),
-  ATM_NOTE_A5,
-  ATM_DELAY(8),
-  ATM_NOTE_G5,
-  ATM_DELAY(16),
-  ATM_NOTE_E5,
-  ATM_DELAY(16),
-  ATM_NOTE_F5_,
-  ATM_DELAY(8),
-  ATM_NOTE_A5,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_A5,
-  ATM_DELAY(16),
-  ATM_NOTE_F5_,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_B4,
-  ATM_DELAY(16),
-  ATM_NOTE_G4,
-  ATM_DELAY(32),
   ATM_NOTE_E5,
   ATM_DELAY(16),
   ATM_NOTE_C5,
@@ -795,26 +642,9 @@ Song gemSteam[] = {          // total song in bytes = 359
   ATM_DELAY(16),
   ATM_NOTE_C5,
   ATM_DELAY(16),
-  ATM_NOTE_D5,
+  ATM_GOTO(9),   // -> sh3
   ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_B4,
-  ATM_DELAY(16),
-  ATM_NOTE_F5_,
-  ATM_DELAY(8),
-  ATM_NOTE_A5,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_A5,
-  ATM_DELAY(16),
-  ATM_NOTE_F5_,
-  ATM_DELAY(16),
+  ATM_GOTO(12),   // -> sh6
   ATM_NOTE_B5,
   ATM_DELAY(16),
   ATM_NOTE_B5,
@@ -824,36 +654,11 @@ Song gemSteam[] = {          // total song in bytes = 359
   ATM_NOTE_B5,
   ATM_DELAY(16),
   ATM_NOTE_G5,
-  ATM_DELAY(16),
-  ATM_NOTE_G5,
-  ATM_DELAY(16),
-  ATM_NOTE_G5,
+  ATM_GOTO(6),   // -> sh0
   ATM_DELAY(8),
-  ATM_NOTE_A5,
-  ATM_DELAY(8),
-  ATM_NOTE_G5,
-  ATM_DELAY(16),
-  ATM_NOTE_E5,
-  ATM_DELAY(16),
-  ATM_NOTE_F5_,
-  ATM_DELAY(8),
-  ATM_NOTE_A5,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_A5,
-  ATM_DELAY(16),
-  ATM_NOTE_F5_,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_B4,
-  ATM_DELAY(16),
-  ATM_NOTE_G4,
-  ATM_DELAY(32),
   ATM_GOTO(0),   // -> lead
 
-  //"Track 1" chords  [53 bytes]
+  //"Track 1" chords  [35 bytes]
   ATM_VOL(MV(22)),
   ATM_SL_VOL(MS(1)),
   ATM_ARP(0x43, 0x23),
@@ -872,83 +677,37 @@ Song gemSteam[] = {          // total song in bytes = 359
   ATM_NOTE_D3,
   ATM_DELAY(64),
   ATM_NOTE_G3,
-  ATM_DELAY(64),
-  ATM_ARP(0x34, 0x23),
-  ATM_NOTE_E3,
-  ATM_DELAY(64),
-  ATM_ARP(0x43, 0x23),
-  ATM_NOTE_C4,
-  ATM_DELAY(64),
+  ATM_GOTO(11),   // -> sh5
   ATM_NOTE_G3,
   ATM_DELAY(64),
   ATM_NOTE_D3,
-  ATM_DELAY(64),
-  ATM_ARP(0x34, 0x23),
-  ATM_NOTE_E3,
-  ATM_DELAY(64),
-  ATM_ARP(0x43, 0x23),
-  ATM_NOTE_C4,
-  ATM_DELAY(64),
+  ATM_GOTO(11),   // -> sh5
   ATM_NOTE_D3,
   ATM_DELAY(64),
   ATM_NOTE_G3,
   ATM_DELAY(64),
   ATM_GOTO(1),   // -> chords
 
-  //"Track 2" bar  [17 bytes]
-  ATM_NOTE_G2,
-  ATM_DELAY(8),
-  ATM_NOTE_D3,
-  ATM_DELAY(8),
-  ATM_NOTE_G2,
-  ATM_DELAY(8),
-  ATM_NOTE_D3,
-  ATM_DELAY(8),
-  ATM_NOTE_G2,
-  ATM_DELAY(8),
-  ATM_NOTE_D3,
-  ATM_DELAY(8),
-  ATM_NOTE_G2,
-  ATM_DELAY(8),
-  ATM_NOTE_D3,
-  ATM_DELAY(8),
+  //"Track 2" bar  [9 bytes]
+  ATM_GOTO(13),   // -> sh7
+  ATM_GOTO(13),   // -> sh7
+  ATM_GOTO(13),   // -> sh7
+  ATM_GOTO(13),   // -> sh7
   ATM_RETURN,
 
-  //"Track 3" bass  [70 bytes]
+  //"Track 3" bass  [26 bytes]
   ATM_VOL(MV(56)),
   ATM_SL_VOL(MS(2)),
   ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
+  ATM_GOTO(14),   // -> sh8
+  ATM_GOTO(8),   // -> sh2
+  ATM_GOTO(15),   // -> sh9
+  ATM_SET_TRA((uint8_t)-3),
+  ATM_GOTO(14),   // -> sh8
   ATM_GOTO(2),   // -> bar
   ATM_SET_TRA((uint8_t)-3),
   ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-3),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
+  ATM_GOTO(15),   // -> sh9
   ATM_GOTO(3),   // -> bass
 
   //"Track 4" drums  [7 bytes]
@@ -956,19 +715,23 @@ Song gemSteam[] = {          // total song in bytes = 359
   ATM_REPEAT(31, 5),   // 32x pair
   ATM_GOTO(4),   // -> drums
 
-  //"Track 5" pair  [41 bytes]
-  ATM_VOL(MV(44)),
-  ATM_SL_VOL(MS(12)),
-  ATM_DELAY(4),
-  ATM_VOL(MV(16)),
-  ATM_SL_VOL(MS(12)),
-  ATM_DELAY(4),
-  ATM_VOL(MV(26)),
-  ATM_SL_VOL(MS(6)),
-  ATM_DELAY(4),
-  ATM_VOL(MV(16)),
-  ATM_SL_VOL(MS(12)),
-  ATM_DELAY(4),
+  //"Track 5" pair  [5 bytes]
+  ATM_GOTO(7),   // -> sh1
+  ATM_GOTO(7),   // -> sh1
+  ATM_RETURN,
+
+  //"Track 6" sh0  [11 bytes]
+  ATM_GOTO(10),   // -> sh4
+  ATM_GOTO(12),   // -> sh6
+  ATM_NOTE_D5,
+  ATM_DELAY(16),
+  ATM_NOTE_B4,
+  ATM_DELAY(16),
+  ATM_NOTE_G4,
+  ATM_DELAY(24),
+  ATM_RETURN,
+
+  //"Track 7" sh1  [21 bytes]
   ATM_VOL(MV(44)),
   ATM_SL_VOL(MS(12)),
   ATM_DELAY(4),
@@ -983,50 +746,116 @@ Song gemSteam[] = {          // total song in bytes = 359
   ATM_DELAY(4),
   ATM_RETURN,
 
+  //"Track 8" sh2  [7 bytes]
+  ATM_GOTO(2),   // -> bar
+  ATM_SET_TRA(0),
+  ATM_GOTO(2),   // -> bar
+  ATM_RETURN,
+
+  //"Track 9" sh3  [10 bytes]
+  ATM_NOTE_D5,
+  ATM_DELAY(16),
+  ATM_NOTE_D5,
+  ATM_DELAY(8),
+  ATM_NOTE_E5,
+  ATM_DELAY(8),
+  ATM_NOTE_D5,
+  ATM_DELAY(16),
+  ATM_NOTE_B4,
+  ATM_RETURN,
+
+  //"Track 10" sh4  [12 bytes]
+  ATM_DELAY(16),
+  ATM_NOTE_G5,
+  ATM_DELAY(16),
+  ATM_NOTE_G5,
+  ATM_DELAY(8),
+  ATM_NOTE_A5,
+  ATM_DELAY(8),
+  ATM_NOTE_G5,
+  ATM_DELAY(16),
+  ATM_NOTE_E5,
+  ATM_DELAY(16),
+  ATM_RETURN,
+
+  //"Track 11" sh5  [12 bytes]
+  ATM_DELAY(64),
+  ATM_ARP(0x34, 0x23),
+  ATM_NOTE_E3,
+  ATM_DELAY(64),
+  ATM_ARP(0x43, 0x23),
+  ATM_NOTE_C4,
+  ATM_DELAY(64),
+  ATM_RETURN,
+
+  //"Track 12" sh6  [11 bytes]
+  ATM_NOTE_F5_,
+  ATM_DELAY(8),
+  ATM_NOTE_A5,
+  ATM_DELAY(8),
+  ATM_NOTE_D5,
+  ATM_DELAY(16),
+  ATM_NOTE_A5,
+  ATM_DELAY(16),
+  ATM_NOTE_F5_,
+  ATM_DELAY(16),
+  ATM_RETURN,
+
+  //"Track 13" sh7  [5 bytes]
+  ATM_NOTE_G2,
+  ATM_DELAY(8),
+  ATM_NOTE_D3,
+  ATM_DELAY(8),
+  ATM_RETURN,
+
+  //"Track 14" sh8  [9 bytes]
+  ATM_GOTO(2),   // -> bar
+  ATM_SET_TRA(5),
+  ATM_GOTO(8),   // -> sh2
+  ATM_SET_TRA((uint8_t)-5),
+  ATM_RETURN,
+
+  //"Track 15" sh9  [9 bytes]
+  ATM_SET_TRA(5),
+  ATM_GOTO(2),   // -> bar
+  ATM_SET_TRA((uint8_t)-5),
+  ATM_GOTO(8),   // -> sh2
+  ATM_RETURN,
+
 };
 
 // ---------------------------------------------------------------------------
 // Begemmed - in game 3: Brass Gears
 // A minor, a driving brass-and-gears march with a stern, singing lead.
-// 348 bytes
+// 307 bytes
 // ---------------------------------------------------------------------------
-Song gemBrass[] = {          // total song in bytes = 348
-  0x06,                         // Number of tracks
+Song gemBrass[] = {          // total song in bytes = 307
+  0x0E,                         // Number of tracks
   0x00, 0x00,                   // Address of track 0   //0  lead
-  0x9C, 0x00,                   // Address of track 1   //156  chords
-  0xD7, 0x00,                   // Address of track 2   //215  bar
-  0xE4, 0x00,                   // Address of track 3   //228  bass
-  0x2A, 0x01,                   // Address of track 4   //298  drums
-  0x31, 0x01,                   // Address of track 5   //305  pair
+  0x5C, 0x00,                   // Address of track 1   //92  chords
+  0x79, 0x00,                   // Address of track 2   //121  bar
+  0x86, 0x00,                   // Address of track 3   //134  bass
+  0xA0, 0x00,                   // Address of track 4   //160  drums
+  0xA7, 0x00,                   // Address of track 5   //167  pair
+  0xB1, 0x00,                   // Address of track 6   //177  sh0
+  0xC4, 0x00,                   // Address of track 7   //196  sh1
+  0xD6, 0x00,                   // Address of track 8   //214  sh2
+  0xE2, 0x00,                   // Address of track 9   //226  sh3
+  0xED, 0x00,                   // Address of track 10   //237  sh4
+  0xF8, 0x00,                   // Address of track 11   //248  sh5
+  0x03, 0x01,                   // Address of track 12   //259  sh6
+  0x0D, 0x01,                   // Address of track 13   //269  sh7
 
   0x00,                         // Channel 0 entry track (lead)
   0x01,                         // Channel 1 entry track (chords)
   0x03,                         // Channel 2 entry track (bass)
   0x04,                         // Channel 3 entry track (drums)
 
-  //"Track 0" lead  [156 bytes]
+  //"Track 0" lead  [92 bytes]
   ATM_VOL(MV(44)),
   ATM_SL_VOL(MS(2)),
-  ATM_NOTE_A4,
-  ATM_DELAY(16),
-  ATM_NOTE_C5,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(8),
-  ATM_NOTE_A5,
-  ATM_DELAY(16),
-  ATM_NOTE_E5,
-  ATM_DELAY(16),
-  ATM_NOTE_E5,
-  ATM_DELAY(8),
-  ATM_NOTE_C5,
-  ATM_DELAY(8),
-  ATM_NOTE_A4,
-  ATM_DELAY(16),
-  ATM_NOTE_C5,
-  ATM_DELAY(16),
-  ATM_NOTE_F4,
-  ATM_DELAY(16),
+  ATM_GOTO(12),   // -> sh6
+  ATM_GOTO(8),   // -> sh2
   ATM_NOTE_F5,
   ATM_DELAY(16),
   ATM_NOTE_A5,
@@ -1037,25 +866,8 @@ Song gemBrass[] = {          // total song in bytes = 348
   ATM_DELAY(16),
   ATM_NOTE_C5,
   ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(8),
-  ATM_NOTE_B5,
-  ATM_DELAY(8),
-  ATM_NOTE_G5,
-  ATM_DELAY(16),
-  ATM_NOTE_B5,
-  ATM_DELAY(16),
-  ATM_NOTE_E5,
-  ATM_DELAY(16),
-  ATM_NOTE_A4,
-  ATM_DELAY(16),
-  ATM_NOTE_C5,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(8),
-  ATM_NOTE_A5,
-  ATM_DELAY(16),
-  ATM_NOTE_E5,
+  ATM_GOTO(9),   // -> sh3
+  ATM_GOTO(12),   // -> sh6
   ATM_DELAY(16),
   ATM_NOTE_A5,
   ATM_DELAY(24),
@@ -1065,16 +877,7 @@ Song gemBrass[] = {          // total song in bytes = 348
   ATM_DELAY(16),
   ATM_NOTE_A4,
   ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_F5,
-  ATM_DELAY(8),
-  ATM_NOTE_A5,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_A5,
-  ATM_DELAY(16),
+  ATM_GOTO(10),   // -> sh4
   ATM_NOTE_B5,
   ATM_DELAY(8),
   ATM_NOTE_G5,
@@ -1093,16 +896,7 @@ Song gemBrass[] = {          // total song in bytes = 348
   ATM_DELAY(8),
   ATM_NOTE_F5,
   ATM_DELAY(32),
-  ATM_NOTE_D5,
-  ATM_DELAY(8),
-  ATM_NOTE_B5,
-  ATM_DELAY(8),
-  ATM_NOTE_G5,
-  ATM_DELAY(16),
-  ATM_NOTE_B5,
-  ATM_DELAY(16),
-  ATM_NOTE_E5,
-  ATM_DELAY(16),
+  ATM_GOTO(9),   // -> sh3
   ATM_NOTE_A5,
   ATM_DELAY(24),
   ATM_NOTE_E5,
@@ -1110,27 +904,8 @@ Song gemBrass[] = {          // total song in bytes = 348
   ATM_NOTE_C5,
   ATM_DELAY(16),
   ATM_NOTE_A4,
-  ATM_DELAY(16),
-  ATM_NOTE_E5,
-  ATM_DELAY(8),
-  ATM_NOTE_C5,
-  ATM_DELAY(8),
-  ATM_NOTE_A4,
-  ATM_DELAY(16),
-  ATM_NOTE_C5,
-  ATM_DELAY(16),
-  ATM_NOTE_F4,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_F5,
-  ATM_DELAY(8),
-  ATM_NOTE_A5,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_A5,
-  ATM_DELAY(16),
+  ATM_GOTO(8),   // -> sh2
+  ATM_GOTO(10),   // -> sh4
   ATM_NOTE_F5,
   ATM_DELAY(24),
   ATM_NOTE_C5,
@@ -1159,40 +934,16 @@ Song gemBrass[] = {          // total song in bytes = 348
   ATM_DELAY(32),
   ATM_GOTO(0),   // -> lead
 
-  //"Track 1" chords  [59 bytes]
+  //"Track 1" chords  [29 bytes]
   ATM_VOL(MV(24)),
   ATM_SL_VOL(MS(1)),
   ATM_ARP(0x34, 0x24),
   ATM_NOTE_A3,
   ATM_DELAY(64),
   ATM_NOTE_A3,
-  ATM_DELAY(64),
-  ATM_ARP(0x43, 0x24),
-  ATM_NOTE_F3,
-  ATM_DELAY(64),
-  ATM_NOTE_G3,
-  ATM_DELAY(64),
-  ATM_ARP(0x34, 0x24),
-  ATM_NOTE_A3,
-  ATM_DELAY(64),
-  ATM_NOTE_A3,
-  ATM_DELAY(64),
-  ATM_NOTE_D3,
-  ATM_DELAY(64),
+  ATM_GOTO(7),   // -> sh1
   ATM_NOTE_E3,
-  ATM_DELAY(64),
-  ATM_ARP(0x43, 0x24),
-  ATM_NOTE_F3,
-  ATM_DELAY(64),
-  ATM_NOTE_G3,
-  ATM_DELAY(64),
-  ATM_ARP(0x34, 0x24),
-  ATM_NOTE_A3,
-  ATM_DELAY(64),
-  ATM_NOTE_A3,
-  ATM_DELAY(64),
-  ATM_NOTE_D3,
-  ATM_DELAY(64),
+  ATM_GOTO(7),   // -> sh1
   ATM_ARP(0x43, 0x24),
   ATM_NOTE_F3,
   ATM_DELAY(64),
@@ -1218,41 +969,19 @@ Song gemBrass[] = {          // total song in bytes = 348
   ATM_DELAY(8),
   ATM_RETURN,
 
-  //"Track 3" bass  [70 bytes]
+  //"Track 3" bass  [26 bytes]
   ATM_VOL(MV(56)),
   ATM_SL_VOL(MS(2)),
+  ATM_GOTO(13),   // -> sh7
   ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-4),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-2),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(5),
-  ATM_GOTO(2),   // -> bar
+  ATM_GOTO(6),   // -> sh0
   ATM_SET_TRA((uint8_t)-5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-4),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-2),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(5),
-  ATM_GOTO(2),   // -> bar
+  ATM_GOTO(6),   // -> sh0
   ATM_SET_TRA((uint8_t)-4),
   ATM_GOTO(2),   // -> bar
   ATM_SET_TRA((uint8_t)-5),
   ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
+  ATM_GOTO(13),   // -> sh7
   ATM_GOTO(3),   // -> bass
 
   //"Track 4" drums  [7 bytes]
@@ -1260,22 +989,106 @@ Song gemBrass[] = {          // total song in bytes = 348
   ATM_REPEAT(31, 5),   // 32x pair
   ATM_GOTO(4),   // -> drums
 
-  //"Track 5" pair  [26 bytes]
-  ATM_VOL(MV(46)),
-  ATM_SL_VOL(MS(12)),
-  ATM_DELAY(8),
-  ATM_VOL(MV(14)),
-  ATM_SL_VOL(MS(12)),
-  ATM_DELAY(4),
-  ATM_VOL(MV(46)),
-  ATM_SL_VOL(MS(12)),
-  ATM_DELAY(8),
-  ATM_VOL(MV(14)),
-  ATM_SL_VOL(MS(12)),
-  ATM_DELAY(4),
+  //"Track 5" pair  [10 bytes]
+  ATM_GOTO(11),   // -> sh5
+  ATM_GOTO(11),   // -> sh5
   ATM_VOL(MV(28)),
   ATM_SL_VOL(MS(6)),
   ATM_DELAY(8),
+  ATM_RETURN,
+
+  //"Track 6" sh0  [19 bytes]
+  ATM_GOTO(2),   // -> bar
+  ATM_SET_TRA((uint8_t)-4),
+  ATM_GOTO(2),   // -> bar
+  ATM_SET_TRA((uint8_t)-2),
+  ATM_GOTO(2),   // -> bar
+  ATM_GOTO(13),   // -> sh7
+  ATM_GOTO(13),   // -> sh7
+  ATM_SET_TRA(5),
+  ATM_GOTO(2),   // -> bar
+  ATM_RETURN,
+
+  //"Track 7" sh1  [18 bytes]
+  ATM_DELAY(64),
+  ATM_ARP(0x43, 0x24),
+  ATM_NOTE_F3,
+  ATM_DELAY(64),
+  ATM_NOTE_G3,
+  ATM_DELAY(64),
+  ATM_ARP(0x34, 0x24),
+  ATM_NOTE_A3,
+  ATM_DELAY(64),
+  ATM_NOTE_A3,
+  ATM_DELAY(64),
+  ATM_NOTE_D3,
+  ATM_DELAY(64),
+  ATM_RETURN,
+
+  //"Track 8" sh2  [12 bytes]
+  ATM_DELAY(16),
+  ATM_NOTE_E5,
+  ATM_DELAY(8),
+  ATM_NOTE_C5,
+  ATM_DELAY(8),
+  ATM_NOTE_A4,
+  ATM_DELAY(16),
+  ATM_NOTE_C5,
+  ATM_DELAY(16),
+  ATM_NOTE_F4,
+  ATM_DELAY(16),
+  ATM_RETURN,
+
+  //"Track 9" sh3  [11 bytes]
+  ATM_NOTE_D5,
+  ATM_DELAY(8),
+  ATM_NOTE_B5,
+  ATM_DELAY(8),
+  ATM_NOTE_G5,
+  ATM_DELAY(16),
+  ATM_NOTE_B5,
+  ATM_DELAY(16),
+  ATM_NOTE_E5,
+  ATM_DELAY(16),
+  ATM_RETURN,
+
+  //"Track 10" sh4  [11 bytes]
+  ATM_NOTE_D5,
+  ATM_DELAY(16),
+  ATM_NOTE_F5,
+  ATM_DELAY(8),
+  ATM_NOTE_A5,
+  ATM_DELAY(8),
+  ATM_NOTE_D5,
+  ATM_DELAY(16),
+  ATM_NOTE_A5,
+  ATM_DELAY(16),
+  ATM_RETURN,
+
+  //"Track 11" sh5  [11 bytes]
+  ATM_VOL(MV(46)),
+  ATM_SL_VOL(MS(12)),
+  ATM_DELAY(8),
+  ATM_VOL(MV(14)),
+  ATM_SL_VOL(MS(12)),
+  ATM_DELAY(4),
+  ATM_RETURN,
+
+  //"Track 12" sh6  [10 bytes]
+  ATM_NOTE_A4,
+  ATM_DELAY(16),
+  ATM_NOTE_C5,
+  ATM_DELAY(8),
+  ATM_NOTE_E5,
+  ATM_DELAY(8),
+  ATM_NOTE_A5,
+  ATM_DELAY(16),
+  ATM_NOTE_E5,
+  ATM_RETURN,
+
+  //"Track 13" sh7  [5 bytes]
+  ATM_SET_TRA(0),
+  ATM_GOTO(2),   // -> bar
   ATM_RETURN,
 
 };
@@ -1283,23 +1096,28 @@ Song gemBrass[] = {          // total song in bytes = 348
 // ---------------------------------------------------------------------------
 // Begemmed - in game 4: Gem Cavern
 // E minor, slow and mysterious: glittering arpeggios drip through a deep cavern.
-// 287 bytes
+// 276 bytes
 // ---------------------------------------------------------------------------
-Song gemCave[] = {          // total song in bytes = 287
-  0x06,                         // Number of tracks
+Song gemCave[] = {          // total song in bytes = 276
+  0x0B,                         // Number of tracks
   0x00, 0x00,                   // Address of track 0   //0  lead
-  0x74, 0x00,                   // Address of track 1   //116  chords
-  0xAF, 0x00,                   // Address of track 2   //175  bar
-  0xB6, 0x00,                   // Address of track 3   //182  bass
-  0xFC, 0x00,                   // Address of track 4   //252  drums
-  0x03, 0x01,                   // Address of track 5   //259  pair
+  0x61, 0x00,                   // Address of track 1   //97  chords
+  0x93, 0x00,                   // Address of track 2   //147  bar
+  0x9A, 0x00,                   // Address of track 3   //154  bass
+  0xC8, 0x00,                   // Address of track 4   //200  drums
+  0xCF, 0x00,                   // Address of track 5   //207  pair
+  0xDA, 0x00,                   // Address of track 6   //218  sh0
+  0xDF, 0x00,                   // Address of track 7   //223  sh1
+  0xE6, 0x00,                   // Address of track 8   //230  sh2
+  0xED, 0x00,                   // Address of track 9   //237  sh3
+  0xF3, 0x00,                   // Address of track 10   //243  sh4
 
   0x00,                         // Channel 0 entry track (lead)
   0x01,                         // Channel 1 entry track (chords)
   0x03,                         // Channel 2 entry track (bass)
   0x04,                         // Channel 3 entry track (drums)
 
-  //"Track 0" lead  [116 bytes]
+  //"Track 0" lead  [97 bytes]
   ATM_VOL(MV(44)),
   ATM_SL_VOL(MS(2)),
   ATM_NOTE_E4,
@@ -1317,11 +1135,7 @@ Song gemCave[] = {          // total song in bytes = 287
   ATM_NOTE_B3,
   ATM_DELAY(16),
   ATM_NOTE_C5,
-  ATM_DELAY(32),
-  ATM_NOTE_G5,
-  ATM_DELAY(16),
-  ATM_NOTE_E5,
-  ATM_DELAY(16),
+  ATM_GOTO(9),   // -> sh3
   ATM_NOTE_G5,
   ATM_DELAY(16),
   ATM_NOTE_E5,
@@ -1346,14 +1160,8 @@ Song gemCave[] = {          // total song in bytes = 287
   ATM_DELAY(16),
   ATM_NOTE_B5,
   ATM_DELAY(32),
-  ATM_NOTE_F5_,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_F5_,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
+  ATM_GOTO(6),   // -> sh0
+  ATM_GOTO(6),   // -> sh0
   ATM_NOTE_B4,
   ATM_DELAY(16),
   ATM_NOTE_F4_,
@@ -1366,22 +1174,12 @@ Song gemCave[] = {          // total song in bytes = 287
   ATM_DELAY(32),
   ATM_NOTE_A5,
   ATM_DELAY(16),
-  ATM_NOTE_F5_,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
+  ATM_GOTO(6),   // -> sh0
   ATM_NOTE_A4,
   ATM_DELAY(16),
   ATM_NOTE_C5,
-  ATM_DELAY(32),
-  ATM_NOTE_G5,
-  ATM_DELAY(16),
-  ATM_NOTE_E5,
-  ATM_DELAY(16),
-  ATM_NOTE_F5_,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
+  ATM_GOTO(9),   // -> sh3
+  ATM_GOTO(6),   // -> sh0
   ATM_NOTE_B4,
   ATM_DELAY(16),
   ATM_NOTE_F4_,
@@ -1391,21 +1189,14 @@ Song gemCave[] = {          // total song in bytes = 287
   ATM_NOTE_C5,
   ATM_DELAY(8),
   ATM_NOTE_E5,
-  ATM_DELAY(32),
-  ATM_NOTE_G5,
-  ATM_DELAY(16),
-  ATM_NOTE_E5,
-  ATM_DELAY(16),
+  ATM_GOTO(9),   // -> sh3
   ATM_NOTE_C5,
   ATM_DELAY(16),
   ATM_NOTE_G4,
   ATM_DELAY(16),
   ATM_NOTE_B5,
   ATM_DELAY(32),
-  ATM_NOTE_F5_,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
+  ATM_GOTO(6),   // -> sh0
   ATM_NOTE_G4,
   ATM_DELAY(16),
   ATM_NOTE_B4,
@@ -1414,7 +1205,7 @@ Song gemCave[] = {          // total song in bytes = 287
   ATM_DELAY(32),
   ATM_GOTO(0),   // -> lead
 
-  //"Track 1" chords  [59 bytes]
+  //"Track 1" chords  [50 bytes]
   ATM_VOL(MV(24)),
   ATM_SL_VOL(MS(1)),
   ATM_ARP(0x34, 0x25),
@@ -1425,9 +1216,7 @@ Song gemCave[] = {          // total song in bytes = 287
   ATM_ARP(0x43, 0x25),
   ATM_NOTE_C4,
   ATM_DELAY(64),
-  ATM_NOTE_C4,
-  ATM_DELAY(64),
-  ATM_ARP(0x34, 0x25),
+  ATM_GOTO(10),   // -> sh4
   ATM_NOTE_A3,
   ATM_DELAY(64),
   ATM_NOTE_A3,
@@ -1441,17 +1230,13 @@ Song gemCave[] = {          // total song in bytes = 287
   ATM_ARP(0x43, 0x25),
   ATM_NOTE_D3,
   ATM_DELAY(64),
-  ATM_NOTE_C4,
-  ATM_DELAY(64),
-  ATM_ARP(0x34, 0x25),
+  ATM_GOTO(10),   // -> sh4
   ATM_NOTE_B3,
   ATM_DELAY(64),
   ATM_NOTE_A3,
   ATM_DELAY(64),
   ATM_ARP(0x43, 0x25),
-  ATM_NOTE_C4,
-  ATM_DELAY(64),
-  ATM_ARP(0x34, 0x25),
+  ATM_GOTO(10),   // -> sh4
   ATM_NOTE_B3,
   ATM_DELAY(64),
   ATM_NOTE_E3,
@@ -1467,17 +1252,13 @@ Song gemCave[] = {          // total song in bytes = 287
   ATM_DELAY(16),
   ATM_RETURN,
 
-  //"Track 3" bass  [70 bytes]
+  //"Track 3" bass  [46 bytes]
   ATM_VOL(MV(56)),
   ATM_SL_VOL(MS(2)),
   ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
+  ATM_GOTO(7),   // -> sh1
   ATM_SET_TRA((uint8_t)-4),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-4),
-  ATM_GOTO(2),   // -> bar
+  ATM_GOTO(8),   // -> sh2
   ATM_SET_TRA(5),
   ATM_GOTO(2),   // -> bar
   ATM_SET_TRA(5),
@@ -1485,23 +1266,15 @@ Song gemCave[] = {          // total song in bytes = 287
   ATM_SET_TRA((uint8_t)-5),
   ATM_GOTO(2),   // -> bar
   ATM_SET_TRA((uint8_t)-5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
+  ATM_GOTO(7),   // -> sh1
   ATM_SET_TRA((uint8_t)-2),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-4),
-  ATM_GOTO(2),   // -> bar
+  ATM_GOTO(8),   // -> sh2
   ATM_SET_TRA((uint8_t)-5),
   ATM_GOTO(2),   // -> bar
   ATM_SET_TRA(5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-4),
-  ATM_GOTO(2),   // -> bar
+  ATM_GOTO(8),   // -> sh2
   ATM_SET_TRA((uint8_t)-5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
+  ATM_GOTO(7),   // -> sh1
   ATM_GOTO(3),   // -> bass
 
   //"Track 4" drums  [7 bytes]
@@ -1518,132 +1291,77 @@ Song gemCave[] = {          // total song in bytes = 287
   ATM_DELAY(16),
   ATM_RETURN,
 
+  //"Track 6" sh0  [5 bytes]
+  ATM_NOTE_F5_,
+  ATM_DELAY(16),
+  ATM_NOTE_D5,
+  ATM_DELAY(16),
+  ATM_RETURN,
+
+  //"Track 7" sh1  [7 bytes]
+  ATM_GOTO(2),   // -> bar
+  ATM_SET_TRA(0),
+  ATM_GOTO(2),   // -> bar
+  ATM_RETURN,
+
+  //"Track 8" sh2  [7 bytes]
+  ATM_GOTO(2),   // -> bar
+  ATM_SET_TRA((uint8_t)-4),
+  ATM_GOTO(2),   // -> bar
+  ATM_RETURN,
+
+  //"Track 9" sh3  [6 bytes]
+  ATM_DELAY(32),
+  ATM_NOTE_G5,
+  ATM_DELAY(16),
+  ATM_NOTE_E5,
+  ATM_DELAY(16),
+  ATM_RETURN,
+
+  //"Track 10" sh4  [6 bytes]
+  ATM_NOTE_C4,
+  ATM_DELAY(64),
+  ATM_ARP(0x34, 0x25),
+  ATM_RETURN,
+
 };
 
 // ---------------------------------------------------------------------------
 // Begemmed - in game 5: Pocket Watch
 // F major, a gentle pocket-watch tune: little steps up and down over a rocking bass.
-// 307 bytes
+// 239 bytes
 // ---------------------------------------------------------------------------
-Song gemWatch[] = {          // total song in bytes = 307
-  0x06,                         // Number of tracks
+Song gemWatch[] = {          // total song in bytes = 239
+  0x0B,                         // Number of tracks
   0x00, 0x00,                   // Address of track 0   //0  lead
-  0x82, 0x00,                   // Address of track 1   //130  chords
-  0xB7, 0x00,                   // Address of track 2   //183  bar
-  0xC0, 0x00,                   // Address of track 3   //192  bass
-  0x06, 0x01,                   // Address of track 4   //262  drums
-  0x0D, 0x01,                   // Address of track 5   //269  pair
+  0x28, 0x00,                   // Address of track 1   //40  chords
+  0x47, 0x00,                   // Address of track 2   //71  bar
+  0x50, 0x00,                   // Address of track 3   //80  bass
+  0x6A, 0x00,                   // Address of track 4   //106  drums
+  0x71, 0x00,                   // Address of track 5   //113  pair
+  0x86, 0x00,                   // Address of track 6   //134  sh0
+  0xA1, 0x00,                   // Address of track 7   //161  sh1
+  0xAC, 0x00,                   // Address of track 8   //172  sh2
+  0xBD, 0x00,                   // Address of track 9   //189  sh3
+  0xCB, 0x00,                   // Address of track 10   //203  sh4
 
   0x00,                         // Channel 0 entry track (lead)
   0x01,                         // Channel 1 entry track (chords)
   0x03,                         // Channel 2 entry track (bass)
   0x04,                         // Channel 3 entry track (drums)
 
-  //"Track 0" lead  [130 bytes]
+  //"Track 0" lead  [40 bytes]
   ATM_VOL(MV(44)),
   ATM_SL_VOL(MS(2)),
-  ATM_NOTE_F4,
-  ATM_DELAY(16),
-  ATM_NOTE_G4,
-  ATM_DELAY(16),
-  ATM_NOTE_A4,
-  ATM_DELAY(16),
-  ATM_NOTE_G4,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_F5,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_A4_,
-  ATM_DELAY(16),
-  ATM_NOTE_C5,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_E5,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_A4,
-  ATM_DELAY(16),
-  ATM_NOTE_C5,
-  ATM_DELAY(16),
-  ATM_NOTE_A4,
-  ATM_DELAY(16),
-  ATM_NOTE_F4,
-  ATM_DELAY(16),
-  ATM_NOTE_A5,
-  ATM_DELAY(16),
-  ATM_NOTE_A5_,
-  ATM_DELAY(16),
-  ATM_NOTE_A5,
-  ATM_DELAY(16),
-  ATM_NOTE_F5,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_F5,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_A4_,
-  ATM_DELAY(16),
-  ATM_NOTE_C5,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_E5,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
+  ATM_GOTO(6),   // -> sh0
+  ATM_GOTO(8),   // -> sh2
   ATM_NOTE_E5,
   ATM_DELAY(16),
   ATM_NOTE_D5,
   ATM_DELAY(16),
   ATM_NOTE_C5,
   ATM_DELAY(32),
-  ATM_NOTE_F4,
-  ATM_DELAY(16),
-  ATM_NOTE_G4,
-  ATM_DELAY(16),
-  ATM_NOTE_A4,
-  ATM_DELAY(16),
-  ATM_NOTE_G4,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_F5,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_A4_,
-  ATM_DELAY(16),
-  ATM_NOTE_C5,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_E5,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_A4,
-  ATM_DELAY(16),
-  ATM_NOTE_C5,
-  ATM_DELAY(16),
-  ATM_NOTE_A4,
-  ATM_DELAY(16),
-  ATM_NOTE_F4,
-  ATM_DELAY(16),
-  ATM_NOTE_A5,
-  ATM_DELAY(16),
-  ATM_NOTE_A5_,
-  ATM_DELAY(16),
-  ATM_NOTE_A5,
-  ATM_DELAY(16),
-  ATM_NOTE_F5,
-  ATM_DELAY(16),
+  ATM_GOTO(6),   // -> sh0
   ATM_NOTE_A4_,
   ATM_DELAY(16),
   ATM_NOTE_D5,
@@ -1668,21 +1386,11 @@ Song gemWatch[] = {          // total song in bytes = 307
   ATM_DELAY(32),
   ATM_GOTO(0),   // -> lead
 
-  //"Track 1" chords  [53 bytes]
+  //"Track 1" chords  [31 bytes]
   ATM_VOL(MV(22)),
   ATM_SL_VOL(MS(1)),
   ATM_ARP(0x43, 0x23),
-  ATM_NOTE_F3,
-  ATM_DELAY(64),
-  ATM_NOTE_A3_,
-  ATM_DELAY(64),
-  ATM_NOTE_C4,
-  ATM_DELAY(64),
-  ATM_NOTE_F3,
-  ATM_DELAY(64),
-  ATM_ARP(0x34, 0x23),
-  ATM_NOTE_D3,
-  ATM_DELAY(64),
+  ATM_GOTO(9),   // -> sh3
   ATM_ARP(0x43, 0x23),
   ATM_NOTE_A3_,
   ATM_DELAY(64),
@@ -1690,17 +1398,7 @@ Song gemWatch[] = {          // total song in bytes = 307
   ATM_DELAY(64),
   ATM_NOTE_C4,
   ATM_DELAY(64),
-  ATM_NOTE_F3,
-  ATM_DELAY(64),
-  ATM_NOTE_A3_,
-  ATM_DELAY(64),
-  ATM_NOTE_C4,
-  ATM_DELAY(64),
-  ATM_NOTE_F3,
-  ATM_DELAY(64),
-  ATM_ARP(0x34, 0x23),
-  ATM_NOTE_D3,
-  ATM_DELAY(64),
+  ATM_GOTO(9),   // -> sh3
   ATM_NOTE_G3,
   ATM_DELAY(64),
   ATM_ARP(0x43, 0x23),
@@ -1721,41 +1419,19 @@ Song gemWatch[] = {          // total song in bytes = 307
   ATM_DELAY(16),
   ATM_RETURN,
 
-  //"Track 3" bass  [70 bytes]
+  //"Track 3" bass  [26 bytes]
   ATM_VOL(MV(56)),
   ATM_SL_VOL(MS(2)),
   ATM_SET_TRA(0),
   ATM_GOTO(2),   // -> bar
+  ATM_GOTO(10),   // -> sh4
   ATM_SET_TRA(5),
   ATM_GOTO(2),   // -> bar
   ATM_SET_TRA((uint8_t)-5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-3),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-3),
-  ATM_GOTO(2),   // -> bar
+  ATM_GOTO(7),   // -> sh1
+  ATM_GOTO(10),   // -> sh4
   ATM_SET_TRA(2),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
+  ATM_GOTO(7),   // -> sh1
   ATM_GOTO(3),   // -> bass
 
   //"Track 4" drums  [7 bytes]
@@ -1778,102 +1454,118 @@ Song gemWatch[] = {          // total song in bytes = 307
   ATM_DELAY(8),
   ATM_RETURN,
 
+  //"Track 6" sh0  [27 bytes]
+  ATM_NOTE_F4,
+  ATM_DELAY(16),
+  ATM_NOTE_G4,
+  ATM_DELAY(16),
+  ATM_NOTE_A4,
+  ATM_DELAY(16),
+  ATM_NOTE_G4,
+  ATM_DELAY(16),
+  ATM_GOTO(8),   // -> sh2
+  ATM_NOTE_A4,
+  ATM_DELAY(16),
+  ATM_NOTE_C5,
+  ATM_DELAY(16),
+  ATM_NOTE_A4,
+  ATM_DELAY(16),
+  ATM_NOTE_F4,
+  ATM_DELAY(16),
+  ATM_NOTE_A5,
+  ATM_DELAY(16),
+  ATM_NOTE_A5_,
+  ATM_DELAY(16),
+  ATM_NOTE_A5,
+  ATM_DELAY(16),
+  ATM_NOTE_F5,
+  ATM_DELAY(16),
+  ATM_RETURN,
+
+  //"Track 7" sh1  [11 bytes]
+  ATM_GOTO(2),   // -> bar
+  ATM_SET_TRA((uint8_t)-5),
+  ATM_GOTO(2),   // -> bar
+  ATM_SET_TRA(0),
+  ATM_GOTO(2),   // -> bar
+  ATM_RETURN,
+
+  //"Track 8" sh2  [17 bytes]
+  ATM_NOTE_D5,
+  ATM_DELAY(16),
+  ATM_NOTE_F5,
+  ATM_DELAY(16),
+  ATM_NOTE_D5,
+  ATM_DELAY(16),
+  ATM_NOTE_A4_,
+  ATM_DELAY(16),
+  ATM_NOTE_C5,
+  ATM_DELAY(16),
+  ATM_NOTE_D5,
+  ATM_DELAY(16),
+  ATM_NOTE_E5,
+  ATM_DELAY(16),
+  ATM_NOTE_D5,
+  ATM_DELAY(16),
+  ATM_RETURN,
+
+  //"Track 9" sh3  [14 bytes]
+  ATM_NOTE_F3,
+  ATM_DELAY(64),
+  ATM_NOTE_A3_,
+  ATM_DELAY(64),
+  ATM_NOTE_C4,
+  ATM_DELAY(64),
+  ATM_NOTE_F3,
+  ATM_DELAY(64),
+  ATM_ARP(0x34, 0x23),
+  ATM_NOTE_D3,
+  ATM_DELAY(64),
+  ATM_RETURN,
+
+  //"Track 10" sh4  [9 bytes]
+  ATM_SET_TRA(5),
+  ATM_GOTO(7),   // -> sh1
+  ATM_SET_TRA((uint8_t)-3),
+  ATM_GOTO(2),   // -> bar
+  ATM_RETURN,
+
 };
 
 // ---------------------------------------------------------------------------
 // Begemmed - in game 6: Crystal Rain
 // D major, bright and fast: crystal raindrops of sixteenth notes.
-// 525 bytes
+// 381 bytes
 // ---------------------------------------------------------------------------
-Song gemRain[] = {          // total song in bytes = 525
-  0x06,                         // Number of tracks
+Song gemRain[] = {          // total song in bytes = 381
+  0x11,                         // Number of tracks
   0x00, 0x00,                   // Address of track 0   //0  lead
-  0x3A, 0x01,                   // Address of track 1   //314  chords
-  0x75, 0x01,                   // Address of track 2   //373  bar
-  0x86, 0x01,                   // Address of track 3   //390  bass
-  0xCC, 0x01,                   // Address of track 4   //460  drums
-  0xD3, 0x01,                   // Address of track 5   //467  pair
+  0x7D, 0x00,                   // Address of track 1   //125  chords
+  0x94, 0x00,                   // Address of track 2   //148  bar
+  0x9D, 0x00,                   // Address of track 3   //157  bass
+  0xB9, 0x00,                   // Address of track 4   //185  drums
+  0xC0, 0x00,                   // Address of track 5   //192  pair
+  0xC9, 0x00,                   // Address of track 6   //201  sh0
+  0xE7, 0x00,                   // Address of track 7   //231  sh1
+  0xF8, 0x00,                   // Address of track 8   //248  sh2
+  0x0F, 0x01,                   // Address of track 9   //271  sh3
+  0x1E, 0x01,                   // Address of track 10   //286  sh4
+  0x29, 0x01,                   // Address of track 11   //297  sh5
+  0x2D, 0x01,                   // Address of track 12   //301  sh6
+  0x3B, 0x01,                   // Address of track 13   //315  sh7
+  0x42, 0x01,                   // Address of track 14   //322  sh8
+  0x48, 0x01,                   // Address of track 15   //328  sh9
+  0x51, 0x01,                   // Address of track 16   //337  sh10
 
   0x00,                         // Channel 0 entry track (lead)
   0x01,                         // Channel 1 entry track (chords)
   0x03,                         // Channel 2 entry track (bass)
   0x04,                         // Channel 3 entry track (drums)
 
-  //"Track 0" lead  [314 bytes]
+  //"Track 0" lead  [125 bytes]
   ATM_VOL(MV(44)),
   ATM_SL_VOL(MS(2)),
-  ATM_NOTE_D4,
-  ATM_DELAY(4),
-  ATM_NOTE_F4_,
-  ATM_DELAY(4),
-  ATM_NOTE_A4,
-  ATM_DELAY(4),
-  ATM_NOTE_D5,
-  ATM_DELAY(4),
-  ATM_NOTE_A4,
-  ATM_DELAY(4),
-  ATM_NOTE_F4_,
-  ATM_DELAY(4),
-  ATM_NOTE_D4,
-  ATM_DELAY(4),
-  ATM_NOTE_F4_,
-  ATM_DELAY(4),
-  ATM_NOTE_A4,
-  ATM_DELAY(4),
-  ATM_NOTE_D5,
-  ATM_DELAY(4),
-  ATM_NOTE_F5_,
-  ATM_DELAY(4),
-  ATM_NOTE_D5,
-  ATM_DELAY(4),
-  ATM_NOTE_A4,
-  ATM_DELAY(4),
-  ATM_NOTE_F4_,
-  ATM_DELAY(4),
-  ATM_NOTE_D4,
-  ATM_DELAY(8),
-  ATM_NOTE_A5,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(8),
-  ATM_NOTE_C5_,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(8),
-  ATM_NOTE_A5,
-  ATM_DELAY(16),
-  ATM_NOTE_E5,
-  ATM_DELAY(16),
-  ATM_NOTE_B4,
-  ATM_DELAY(4),
-  ATM_NOTE_D5,
-  ATM_DELAY(4),
-  ATM_NOTE_F5_,
-  ATM_DELAY(4),
-  ATM_NOTE_B5,
-  ATM_DELAY(4),
-  ATM_NOTE_F5_,
-  ATM_DELAY(4),
-  ATM_NOTE_D5,
-  ATM_DELAY(4),
-  ATM_NOTE_B4,
-  ATM_DELAY(4),
-  ATM_NOTE_D5,
-  ATM_DELAY(4),
-  ATM_NOTE_F5_,
-  ATM_DELAY(4),
-  ATM_NOTE_B5,
-  ATM_DELAY(4),
-  ATM_NOTE_D5,
-  ATM_DELAY(4),
-  ATM_NOTE_B5,
-  ATM_DELAY(4),
-  ATM_NOTE_F5_,
-  ATM_DELAY(4),
-  ATM_NOTE_D5,
-  ATM_DELAY(4),
-  ATM_NOTE_B4,
-  ATM_DELAY(8),
+  ATM_GOTO(8),   // -> sh2
   ATM_NOTE_G5,
   ATM_DELAY(8),
   ATM_NOTE_D5,
@@ -1886,93 +1578,12 @@ Song gemRain[] = {          // total song in bytes = 525
   ATM_DELAY(16),
   ATM_NOTE_D5,
   ATM_DELAY(16),
-  ATM_NOTE_D4,
-  ATM_DELAY(4),
-  ATM_NOTE_F4_,
-  ATM_DELAY(4),
-  ATM_NOTE_A4,
-  ATM_DELAY(4),
+  ATM_GOTO(8),   // -> sh2
   ATM_NOTE_D5,
   ATM_DELAY(4),
-  ATM_NOTE_A4,
-  ATM_DELAY(4),
-  ATM_NOTE_F4_,
-  ATM_DELAY(4),
-  ATM_NOTE_D4,
-  ATM_DELAY(4),
-  ATM_NOTE_F4_,
-  ATM_DELAY(4),
-  ATM_NOTE_A4,
-  ATM_DELAY(4),
-  ATM_NOTE_D5,
-  ATM_DELAY(4),
-  ATM_NOTE_F5_,
-  ATM_DELAY(4),
-  ATM_NOTE_D5,
-  ATM_DELAY(4),
-  ATM_NOTE_A4,
-  ATM_DELAY(4),
-  ATM_NOTE_F4_,
-  ATM_DELAY(4),
-  ATM_NOTE_D4,
-  ATM_DELAY(8),
-  ATM_NOTE_A5,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(8),
-  ATM_NOTE_C5_,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(8),
-  ATM_NOTE_A5,
-  ATM_DELAY(16),
-  ATM_NOTE_E5,
-  ATM_DELAY(16),
-  ATM_NOTE_B4,
-  ATM_DELAY(4),
-  ATM_NOTE_D5,
-  ATM_DELAY(4),
-  ATM_NOTE_F5_,
-  ATM_DELAY(4),
-  ATM_NOTE_B5,
-  ATM_DELAY(4),
-  ATM_NOTE_F5_,
-  ATM_DELAY(4),
-  ATM_NOTE_D5,
-  ATM_DELAY(4),
-  ATM_NOTE_B4,
-  ATM_DELAY(4),
-  ATM_NOTE_D5,
-  ATM_DELAY(4),
-  ATM_NOTE_F5_,
-  ATM_DELAY(4),
-  ATM_NOTE_B5,
-  ATM_DELAY(4),
-  ATM_NOTE_D5,
-  ATM_DELAY(4),
-  ATM_NOTE_B5,
-  ATM_DELAY(4),
-  ATM_NOTE_F5_,
-  ATM_DELAY(4),
-  ATM_NOTE_D5,
-  ATM_DELAY(4),
-  ATM_NOTE_B4,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(4),
-  ATM_NOTE_G5,
-  ATM_DELAY(4),
-  ATM_NOTE_B5,
-  ATM_DELAY(4),
-  ATM_NOTE_G5,
-  ATM_DELAY(4),
-  ATM_NOTE_D5,
-  ATM_DELAY(4),
-  ATM_NOTE_G5,
-  ATM_DELAY(4),
-  ATM_NOTE_B5,
-  ATM_DELAY(4),
-  ATM_NOTE_G5,
+  ATM_GOTO(14),   // -> sh8
+  ATM_GOTO(11),   // -> sh5
+  ATM_GOTO(14),   // -> sh8
   ATM_DELAY(4),
   ATM_NOTE_D5,
   ATM_DELAY(16),
@@ -1998,26 +1609,12 @@ Song gemRain[] = {          // total song in bytes = 525
   ATM_DELAY(16),
   ATM_NOTE_A4,
   ATM_DELAY(16),
-  ATM_NOTE_A4,
-  ATM_DELAY(4),
-  ATM_NOTE_C5_,
-  ATM_DELAY(4),
-  ATM_NOTE_E5,
-  ATM_DELAY(4),
-  ATM_NOTE_A5,
-  ATM_DELAY(4),
+  ATM_GOTO(15),   // -> sh9
   ATM_NOTE_E5,
   ATM_DELAY(4),
   ATM_NOTE_C5_,
   ATM_DELAY(4),
-  ATM_NOTE_A4,
-  ATM_DELAY(4),
-  ATM_NOTE_C5_,
-  ATM_DELAY(4),
-  ATM_NOTE_E5,
-  ATM_DELAY(4),
-  ATM_NOTE_A5,
-  ATM_DELAY(4),
+  ATM_GOTO(15),   // -> sh9
   ATM_NOTE_C5_,
   ATM_DELAY(4),
   ATM_NOTE_A5,
@@ -2043,61 +1640,23 @@ Song gemRain[] = {          // total song in bytes = 525
   ATM_NOTE_G4,
   ATM_DELAY(4),
   ATM_NOTE_B4,
-  ATM_DELAY(4),
-  ATM_NOTE_D5,
-  ATM_DELAY(4),
+  ATM_GOTO(11),   // -> sh5
   ATM_NOTE_G5,
-  ATM_DELAY(4),
-  ATM_NOTE_D5,
-  ATM_DELAY(4),
+  ATM_GOTO(11),   // -> sh5
   ATM_NOTE_B4,
   ATM_DELAY(4),
   ATM_NOTE_G4,
   ATM_DELAY(4),
   ATM_NOTE_B4,
-  ATM_DELAY(4),
-  ATM_NOTE_D5,
-  ATM_DELAY(4),
-  ATM_NOTE_G5,
-  ATM_DELAY(4),
-  ATM_NOTE_B5,
-  ATM_DELAY(4),
-  ATM_NOTE_G5,
-  ATM_DELAY(4),
-  ATM_NOTE_D5,
-  ATM_DELAY(4),
+  ATM_GOTO(11),   // -> sh5
+  ATM_GOTO(14),   // -> sh8
+  ATM_GOTO(11),   // -> sh5
   ATM_NOTE_B4,
   ATM_DELAY(4),
   ATM_NOTE_G4,
-  ATM_DELAY(8),
-  ATM_NOTE_A5,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(8),
-  ATM_NOTE_C5_,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(8),
-  ATM_NOTE_A5,
-  ATM_DELAY(16),
-  ATM_NOTE_E5,
-  ATM_DELAY(16),
-  ATM_NOTE_A4,
-  ATM_DELAY(4),
-  ATM_NOTE_D5,
-  ATM_DELAY(4),
-  ATM_NOTE_F5_,
-  ATM_DELAY(4),
-  ATM_NOTE_D5,
-  ATM_DELAY(4),
-  ATM_NOTE_A4,
-  ATM_DELAY(4),
-  ATM_NOTE_D5,
-  ATM_DELAY(4),
-  ATM_NOTE_F5_,
-  ATM_DELAY(4),
-  ATM_NOTE_D5,
-  ATM_DELAY(4),
+  ATM_GOTO(12),   // -> sh6
+  ATM_GOTO(13),   // -> sh7
+  ATM_GOTO(13),   // -> sh7
   ATM_NOTE_A5,
   ATM_DELAY(16),
   ATM_NOTE_D5,
@@ -2112,42 +1671,15 @@ Song gemRain[] = {          // total song in bytes = 525
   ATM_DELAY(16),
   ATM_GOTO(0),   // -> lead
 
-  //"Track 1" chords  [59 bytes]
+  //"Track 1" chords  [23 bytes]
   ATM_VOL(MV(20)),
   ATM_SL_VOL(MS(1)),
   ATM_ARP(0x43, 0x22),
-  ATM_NOTE_D3,
-  ATM_DELAY(64),
-  ATM_NOTE_A3,
-  ATM_DELAY(64),
-  ATM_ARP(0x34, 0x22),
-  ATM_NOTE_B3,
-  ATM_DELAY(64),
-  ATM_ARP(0x43, 0x22),
+  ATM_GOTO(9),   // -> sh3
+  ATM_GOTO(9),   // -> sh3
   ATM_NOTE_G3,
   ATM_DELAY(64),
-  ATM_NOTE_D3,
-  ATM_DELAY(64),
-  ATM_NOTE_A3,
-  ATM_DELAY(64),
-  ATM_ARP(0x34, 0x22),
-  ATM_NOTE_B3,
-  ATM_DELAY(64),
-  ATM_ARP(0x43, 0x22),
-  ATM_NOTE_G3,
-  ATM_DELAY(64),
-  ATM_NOTE_G3,
-  ATM_DELAY(64),
-  ATM_NOTE_D3,
-  ATM_DELAY(64),
-  ATM_NOTE_A3,
-  ATM_DELAY(64),
-  ATM_ARP(0x34, 0x22),
-  ATM_NOTE_B3,
-  ATM_DELAY(64),
-  ATM_ARP(0x43, 0x22),
-  ATM_NOTE_G3,
-  ATM_DELAY(64),
+  ATM_GOTO(9),   // -> sh3
   ATM_NOTE_A3,
   ATM_DELAY(64),
   ATM_NOTE_D3,
@@ -2156,54 +1688,21 @@ Song gemRain[] = {          // total song in bytes = 525
   ATM_DELAY(64),
   ATM_GOTO(1),   // -> chords
 
-  //"Track 2" bar  [17 bytes]
-  ATM_NOTE_D3,
-  ATM_DELAY(8),
-  ATM_NOTE_D4,
-  ATM_DELAY(8),
-  ATM_NOTE_D3,
-  ATM_DELAY(8),
-  ATM_NOTE_D4,
-  ATM_DELAY(8),
-  ATM_NOTE_D3,
-  ATM_DELAY(8),
-  ATM_NOTE_D4,
-  ATM_DELAY(8),
-  ATM_NOTE_D3,
-  ATM_DELAY(8),
-  ATM_NOTE_D4,
-  ATM_DELAY(8),
+  //"Track 2" bar  [9 bytes]
+  ATM_GOTO(16),   // -> sh10
+  ATM_GOTO(16),   // -> sh10
+  ATM_GOTO(16),   // -> sh10
+  ATM_GOTO(16),   // -> sh10
   ATM_RETURN,
 
-  //"Track 3" bass  [70 bytes]
+  //"Track 3" bass  [28 bytes]
   ATM_VOL(MV(56)),
   ATM_SL_VOL(MS(2)),
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-3),
-  ATM_GOTO(2),   // -> bar
+  ATM_GOTO(7),   // -> sh1
+  ATM_GOTO(7),   // -> sh1
   ATM_SET_TRA(5),
   ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-3),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-3),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(5),
-  ATM_GOTO(2),   // -> bar
+  ATM_GOTO(7),   // -> sh1
   ATM_SET_TRA((uint8_t)-5),
   ATM_GOTO(2),   // -> bar
   ATM_SET_TRA(0),
@@ -2217,25 +1716,86 @@ Song gemRain[] = {          // total song in bytes = 525
   ATM_REPEAT(31, 5),   // 32x pair
   ATM_GOTO(4),   // -> drums
 
-  //"Track 5" pair  [41 bytes]
-  ATM_VOL(MV(44)),
-  ATM_SL_VOL(MS(12)),
+  //"Track 5" pair  [9 bytes]
+  ATM_GOTO(10),   // -> sh4
+  ATM_GOTO(10),   // -> sh4
+  ATM_GOTO(10),   // -> sh4
+  ATM_GOTO(10),   // -> sh4
+  ATM_RETURN,
+
+  //"Track 6" sh0  [30 bytes]
+  ATM_NOTE_D4,
   ATM_DELAY(4),
-  ATM_VOL(MV(14)),
-  ATM_SL_VOL(MS(12)),
+  ATM_NOTE_F4_,
   ATM_DELAY(4),
-  ATM_VOL(MV(44)),
-  ATM_SL_VOL(MS(12)),
+  ATM_NOTE_A4,
+  ATM_GOTO(11),   // -> sh5
+  ATM_NOTE_A4,
   ATM_DELAY(4),
-  ATM_VOL(MV(14)),
-  ATM_SL_VOL(MS(12)),
+  ATM_NOTE_F4_,
   ATM_DELAY(4),
-  ATM_VOL(MV(44)),
-  ATM_SL_VOL(MS(12)),
+  ATM_NOTE_D4,
   ATM_DELAY(4),
-  ATM_VOL(MV(14)),
-  ATM_SL_VOL(MS(12)),
+  ATM_NOTE_F4_,
   ATM_DELAY(4),
+  ATM_GOTO(13),   // -> sh7
+  ATM_NOTE_A4,
+  ATM_DELAY(4),
+  ATM_NOTE_F4_,
+  ATM_DELAY(4),
+  ATM_NOTE_D4,
+  ATM_GOTO(12),   // -> sh6
+  ATM_NOTE_B4,
+  ATM_GOTO(11),   // -> sh5
+  ATM_NOTE_F5_,
+  ATM_DELAY(4),
+  ATM_RETURN,
+
+  //"Track 7" sh1  [17 bytes]
+  ATM_SET_TRA(0),
+  ATM_GOTO(2),   // -> bar
+  ATM_SET_TRA((uint8_t)-5),
+  ATM_GOTO(2),   // -> bar
+  ATM_SET_TRA((uint8_t)-3),
+  ATM_GOTO(2),   // -> bar
+  ATM_SET_TRA(5),
+  ATM_GOTO(2),   // -> bar
+  ATM_RETURN,
+
+  //"Track 8" sh2  [23 bytes]
+  ATM_GOTO(6),   // -> sh0
+  ATM_NOTE_B5,
+  ATM_DELAY(4),
+  ATM_NOTE_F5_,
+  ATM_GOTO(11),   // -> sh5
+  ATM_NOTE_B4,
+  ATM_GOTO(11),   // -> sh5
+  ATM_NOTE_F5_,
+  ATM_DELAY(4),
+  ATM_NOTE_B5,
+  ATM_GOTO(11),   // -> sh5
+  ATM_NOTE_B5,
+  ATM_DELAY(4),
+  ATM_NOTE_F5_,
+  ATM_GOTO(11),   // -> sh5
+  ATM_NOTE_B4,
+  ATM_DELAY(8),
+  ATM_RETURN,
+
+  //"Track 9" sh3  [15 bytes]
+  ATM_NOTE_D3,
+  ATM_DELAY(64),
+  ATM_NOTE_A3,
+  ATM_DELAY(64),
+  ATM_ARP(0x34, 0x22),
+  ATM_NOTE_B3,
+  ATM_DELAY(64),
+  ATM_ARP(0x43, 0x22),
+  ATM_NOTE_G3,
+  ATM_DELAY(64),
+  ATM_RETURN,
+
+  //"Track 10" sh4  [11 bytes]
   ATM_VOL(MV(44)),
   ATM_SL_VOL(MS(12)),
   ATM_DELAY(4),
@@ -2244,54 +1804,96 @@ Song gemRain[] = {          // total song in bytes = 525
   ATM_DELAY(4),
   ATM_RETURN,
 
+  //"Track 11" sh5  [4 bytes]
+  ATM_DELAY(4),
+  ATM_NOTE_D5,
+  ATM_DELAY(4),
+  ATM_RETURN,
+
+  //"Track 12" sh6  [14 bytes]
+  ATM_DELAY(8),
+  ATM_NOTE_A5,
+  ATM_DELAY(8),
+  ATM_NOTE_E5,
+  ATM_DELAY(8),
+  ATM_NOTE_C5_,
+  ATM_DELAY(8),
+  ATM_NOTE_E5,
+  ATM_DELAY(8),
+  ATM_NOTE_A5,
+  ATM_DELAY(16),
+  ATM_NOTE_E5,
+  ATM_DELAY(16),
+  ATM_RETURN,
+
+  //"Track 13" sh7  [7 bytes]
+  ATM_NOTE_A4,
+  ATM_GOTO(11),   // -> sh5
+  ATM_NOTE_F5_,
+  ATM_GOTO(11),   // -> sh5
+  ATM_RETURN,
+
+  //"Track 14" sh8  [6 bytes]
+  ATM_NOTE_G5,
+  ATM_DELAY(4),
+  ATM_NOTE_B5,
+  ATM_DELAY(4),
+  ATM_NOTE_G5,
+  ATM_RETURN,
+
+  //"Track 15" sh9  [9 bytes]
+  ATM_NOTE_A4,
+  ATM_DELAY(4),
+  ATM_NOTE_C5_,
+  ATM_DELAY(4),
+  ATM_NOTE_E5,
+  ATM_DELAY(4),
+  ATM_NOTE_A5,
+  ATM_DELAY(4),
+  ATM_RETURN,
+
+  //"Track 16" sh10  [5 bytes]
+  ATM_NOTE_D3,
+  ATM_DELAY(8),
+  ATM_NOTE_D4,
+  ATM_DELAY(8),
+  ATM_RETURN,
+
 };
 
 // ---------------------------------------------------------------------------
 // Begemmed - in game 7: Boiler Room
 // D minor, a heavy boiler-room chug with a growling bass and a stubborn lead.
-// 399 bytes
+// 337 bytes
 // ---------------------------------------------------------------------------
-Song gemBoiler[] = {          // total song in bytes = 399
-  0x06,                         // Number of tracks
+Song gemBoiler[] = {          // total song in bytes = 337
+  0x0F,                         // Number of tracks
   0x00, 0x00,                   // Address of track 0   //0  lead
-  0xC2, 0x00,                   // Address of track 1   //194  chords
-  0xF7, 0x00,                   // Address of track 2   //247  bar
-  0x08, 0x01,                   // Address of track 3   //264  bass
-  0x4E, 0x01,                   // Address of track 4   //334  drums
-  0x55, 0x01,                   // Address of track 5   //341  pair
+  0x6B, 0x00,                   // Address of track 1   //107  chords
+  0x8A, 0x00,                   // Address of track 2   //138  bar
+  0x9B, 0x00,                   // Address of track 3   //155  bass
+  0xB7, 0x00,                   // Address of track 4   //183  drums
+  0xBE, 0x00,                   // Address of track 5   //190  pair
+  0xCD, 0x00,                   // Address of track 6   //205  sh0
+  0xDA, 0x00,                   // Address of track 7   //218  sh1
+  0xE5, 0x00,                   // Address of track 8   //229  sh2
+  0xF5, 0x00,                   // Address of track 9   //245  sh3
+  0xFA, 0x00,                   // Address of track 10   //250  sh4
+  0x08, 0x01,                   // Address of track 11   //264  sh5
+  0x16, 0x01,                   // Address of track 12   //278  sh6
+  0x21, 0x01,                   // Address of track 13   //289  sh7
+  0x25, 0x01,                   // Address of track 14   //293  sh8
 
   0x00,                         // Channel 0 entry track (lead)
   0x01,                         // Channel 1 entry track (chords)
   0x03,                         // Channel 2 entry track (bass)
   0x04,                         // Channel 3 entry track (drums)
 
-  //"Track 0" lead  [194 bytes]
+  //"Track 0" lead  [107 bytes]
   ATM_VOL(MV(44)),
   ATM_SL_VOL(MS(2)),
-  ATM_NOTE_D4,
-  ATM_DELAY(8),
-  ATM_NOTE_D4,
-  ATM_DELAY(8),
-  ATM_NOTE_F4,
-  ATM_DELAY(8),
-  ATM_NOTE_D4,
-  ATM_DELAY(8),
-  ATM_NOTE_A4,
-  ATM_DELAY(16),
-  ATM_NOTE_F4,
-  ATM_DELAY(16),
-  ATM_NOTE_D4,
-  ATM_DELAY(8),
-  ATM_NOTE_D4,
-  ATM_DELAY(8),
-  ATM_NOTE_F4,
-  ATM_DELAY(8),
-  ATM_NOTE_D4,
-  ATM_DELAY(8),
-  ATM_NOTE_A4,
-  ATM_DELAY(16),
-  ATM_NOTE_F4,
-  ATM_DELAY(16),
+  ATM_GOTO(6),   // -> sh0
+  ATM_GOTO(6),   // -> sh0
   ATM_NOTE_G5,
   ATM_DELAY(8),
   ATM_NOTE_G5,
@@ -2307,75 +1909,24 @@ Song gemBoiler[] = {          // total song in bytes = 399
   ATM_NOTE_A4_,
   ATM_DELAY(8),
   ATM_NOTE_A4_,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(8),
+  ATM_GOTO(13),   // -> sh7
   ATM_NOTE_A4_,
   ATM_DELAY(8),
   ATM_NOTE_F5,
   ATM_DELAY(16),
   ATM_NOTE_D5,
+  ATM_GOTO(7),   // -> sh1
+  ATM_GOTO(7),   // -> sh1
   ATM_DELAY(16),
   ATM_NOTE_D5,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(8),
-  ATM_NOTE_A4,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(8),
-  ATM_NOTE_F5,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(8),
-  ATM_NOTE_A4,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(8),
-  ATM_NOTE_F5,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(8),
+  ATM_GOTO(13),   // -> sh7
   ATM_NOTE_A4_,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(8),
+  ATM_GOTO(13),   // -> sh7
   ATM_NOTE_G5,
   ATM_DELAY(16),
   ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_A4,
-  ATM_DELAY(8),
-  ATM_NOTE_A4,
-  ATM_DELAY(8),
-  ATM_NOTE_C5,
-  ATM_DELAY(8),
-  ATM_NOTE_A4,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(16),
-  ATM_NOTE_C5,
-  ATM_DELAY(16),
-  ATM_NOTE_D4,
-  ATM_DELAY(8),
-  ATM_NOTE_D4,
-  ATM_DELAY(8),
-  ATM_NOTE_F4,
-  ATM_DELAY(8),
-  ATM_NOTE_D4,
-  ATM_DELAY(8),
-  ATM_NOTE_A4,
-  ATM_DELAY(16),
-  ATM_NOTE_F4,
-  ATM_DELAY(16),
+  ATM_GOTO(10),   // -> sh4
+  ATM_GOTO(6),   // -> sh0
   ATM_NOTE_C5,
   ATM_DELAY(8),
   ATM_NOTE_C5,
@@ -2391,33 +1942,17 @@ Song gemBoiler[] = {          // total song in bytes = 399
   ATM_NOTE_F5,
   ATM_DELAY(8),
   ATM_NOTE_F5,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(8),
+  ATM_GOTO(13),   // -> sh7
   ATM_NOTE_F5,
   ATM_DELAY(8),
   ATM_NOTE_A5_,
   ATM_DELAY(16),
   ATM_NOTE_F5,
-  ATM_DELAY(16),
-  ATM_NOTE_A4,
-  ATM_DELAY(8),
-  ATM_NOTE_A4,
-  ATM_DELAY(8),
-  ATM_NOTE_C5,
-  ATM_DELAY(8),
-  ATM_NOTE_A4,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(16),
-  ATM_NOTE_C5,
-  ATM_DELAY(16),
+  ATM_GOTO(10),   // -> sh4
   ATM_NOTE_G5,
   ATM_DELAY(8),
   ATM_NOTE_G5,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(8),
+  ATM_GOTO(13),   // -> sh7
   ATM_NOTE_G5,
   ATM_DELAY(8),
   ATM_NOTE_A5_,
@@ -2435,18 +1970,7 @@ Song gemBoiler[] = {          // total song in bytes = 399
   ATM_NOTE_A5,
   ATM_DELAY(16),
   ATM_NOTE_E5,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(8),
-  ATM_NOTE_A4,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(8),
-  ATM_NOTE_F5,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
+  ATM_GOTO(7),   // -> sh1
   ATM_DELAY(16),
   ATM_NOTE_A4,
   ATM_DELAY(16),
@@ -2458,20 +1982,12 @@ Song gemBoiler[] = {          // total song in bytes = 399
   ATM_DELAY(16),
   ATM_GOTO(0),   // -> lead
 
-  //"Track 1" chords  [53 bytes]
+  //"Track 1" chords  [31 bytes]
   ATM_VOL(MV(20)),
   ATM_SL_VOL(MS(1)),
   ATM_ARP(0x34, 0x24),
   ATM_NOTE_D3,
-  ATM_DELAY(64),
-  ATM_NOTE_D3,
-  ATM_DELAY(64),
-  ATM_ARP(0x43, 0x24),
-  ATM_NOTE_C4,
-  ATM_DELAY(64),
-  ATM_NOTE_A3_,
-  ATM_DELAY(64),
-  ATM_ARP(0x34, 0x24),
+  ATM_GOTO(11),   // -> sh5
   ATM_NOTE_D3,
   ATM_DELAY(64),
   ATM_NOTE_D3,
@@ -2479,15 +1995,7 @@ Song gemBoiler[] = {          // total song in bytes = 399
   ATM_NOTE_G3,
   ATM_DELAY(64),
   ATM_NOTE_A3,
-  ATM_DELAY(64),
-  ATM_NOTE_D3,
-  ATM_DELAY(64),
-  ATM_ARP(0x43, 0x24),
-  ATM_NOTE_C4,
-  ATM_DELAY(64),
-  ATM_NOTE_A3_,
-  ATM_DELAY(64),
-  ATM_ARP(0x34, 0x24),
+  ATM_GOTO(11),   // -> sh5
   ATM_NOTE_A3,
   ATM_DELAY(64),
   ATM_NOTE_G3,
@@ -2519,41 +2027,20 @@ Song gemBoiler[] = {          // total song in bytes = 399
   ATM_DELAY(8),
   ATM_RETURN,
 
-  //"Track 3" bass  [70 bytes]
+  //"Track 3" bass  [28 bytes]
   ATM_VOL(MV(56)),
   ATM_SL_VOL(MS(2)),
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-2),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-4),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(5),
-  ATM_GOTO(2),   // -> bar
+  ATM_GOTO(9),   // -> sh3
+  ATM_GOTO(12),   // -> sh6
+  ATM_GOTO(9),   // -> sh3
+  ATM_GOTO(9),   // -> sh3
+  ATM_GOTO(14),   // -> sh8
+  ATM_GOTO(12),   // -> sh6
   ATM_SET_TRA((uint8_t)-5),
   ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-2),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-4),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
+  ATM_GOTO(14),   // -> sh8
+  ATM_GOTO(9),   // -> sh3
+  ATM_GOTO(9),   // -> sh3
   ATM_GOTO(3),   // -> bass
 
   //"Track 4" drums  [7 bytes]
@@ -2561,9 +2048,44 @@ Song gemBoiler[] = {          // total song in bytes = 399
   ATM_REPEAT(31, 5),   // 32x pair
   ATM_GOTO(4),   // -> drums
 
-  //"Track 5" pair  [41 bytes]
+  //"Track 5" pair  [15 bytes]
   ATM_VOL(MV(48)),
   ATM_SL_VOL(MS(12)),
+  ATM_GOTO(8),   // -> sh2
+  ATM_GOTO(8),   // -> sh2
+  ATM_DELAY(4),
+  ATM_VOL(MV(14)),
+  ATM_SL_VOL(MS(12)),
+  ATM_DELAY(4),
+  ATM_RETURN,
+
+  //"Track 6" sh0  [13 bytes]
+  ATM_NOTE_D4,
+  ATM_DELAY(8),
+  ATM_NOTE_D4,
+  ATM_DELAY(8),
+  ATM_NOTE_F4,
+  ATM_DELAY(8),
+  ATM_NOTE_D4,
+  ATM_DELAY(8),
+  ATM_NOTE_A4,
+  ATM_DELAY(16),
+  ATM_NOTE_F4,
+  ATM_DELAY(16),
+  ATM_RETURN,
+
+  //"Track 7" sh1  [11 bytes]
+  ATM_DELAY(16),
+  ATM_NOTE_D5,
+  ATM_GOTO(13),   // -> sh7
+  ATM_NOTE_A4,
+  ATM_GOTO(13),   // -> sh7
+  ATM_NOTE_F5,
+  ATM_DELAY(16),
+  ATM_NOTE_D5,
+  ATM_RETURN,
+
+  //"Track 8" sh2  [16 bytes]
   ATM_DELAY(4),
   ATM_VOL(MV(48)),
   ATM_SL_VOL(MS(12)),
@@ -2573,19 +2095,60 @@ Song gemBoiler[] = {          // total song in bytes = 399
   ATM_DELAY(4),
   ATM_VOL(MV(28)),
   ATM_SL_VOL(MS(6)),
-  ATM_DELAY(4),
-  ATM_VOL(MV(48)),
-  ATM_SL_VOL(MS(12)),
-  ATM_DELAY(4),
-  ATM_VOL(MV(14)),
-  ATM_SL_VOL(MS(12)),
-  ATM_DELAY(4),
-  ATM_VOL(MV(28)),
-  ATM_SL_VOL(MS(6)),
-  ATM_DELAY(4),
-  ATM_VOL(MV(14)),
-  ATM_SL_VOL(MS(12)),
-  ATM_DELAY(4),
+  ATM_RETURN,
+
+  //"Track 9" sh3  [5 bytes]
+  ATM_SET_TRA(0),
+  ATM_GOTO(2),   // -> bar
+  ATM_RETURN,
+
+  //"Track 10" sh4  [14 bytes]
+  ATM_DELAY(16),
+  ATM_NOTE_A4,
+  ATM_DELAY(8),
+  ATM_NOTE_A4,
+  ATM_DELAY(8),
+  ATM_NOTE_C5,
+  ATM_DELAY(8),
+  ATM_NOTE_A4,
+  ATM_DELAY(8),
+  ATM_NOTE_E5,
+  ATM_DELAY(16),
+  ATM_NOTE_C5,
+  ATM_DELAY(16),
+  ATM_RETURN,
+
+  //"Track 11" sh5  [14 bytes]
+  ATM_DELAY(64),
+  ATM_NOTE_D3,
+  ATM_DELAY(64),
+  ATM_ARP(0x43, 0x24),
+  ATM_NOTE_C4,
+  ATM_DELAY(64),
+  ATM_NOTE_A3_,
+  ATM_DELAY(64),
+  ATM_ARP(0x34, 0x24),
+  ATM_RETURN,
+
+  //"Track 12" sh6  [11 bytes]
+  ATM_GOTO(9),   // -> sh3
+  ATM_SET_TRA((uint8_t)-2),
+  ATM_GOTO(2),   // -> bar
+  ATM_SET_TRA((uint8_t)-4),
+  ATM_GOTO(2),   // -> bar
+  ATM_RETURN,
+
+  //"Track 13" sh7  [4 bytes]
+  ATM_DELAY(8),
+  ATM_NOTE_D5,
+  ATM_DELAY(8),
+  ATM_RETURN,
+
+  //"Track 14" sh8  [9 bytes]
+  ATM_SET_TRA(5),
+  ATM_GOTO(2),   // -> bar
+  ATM_SET_TRA((uint8_t)-5),
+  ATM_GOTO(2),   // -> bar
   ATM_RETURN,
 
 };
@@ -2593,39 +2156,32 @@ Song gemBoiler[] = {          // total song in bytes = 399
 // ---------------------------------------------------------------------------
 // Begemmed - in game 8: Airship
 // B flat major, a majestic airship drifting over the clouds: broad slow phrases.
-// 285 bytes
+// 263 bytes
 // ---------------------------------------------------------------------------
-Song gemAir[] = {          // total song in bytes = 285
-  0x06,                         // Number of tracks
+Song gemAir[] = {          // total song in bytes = 263
+  0x0B,                         // Number of tracks
   0x00, 0x00,                   // Address of track 0   //0  lead
-  0x72, 0x00,                   // Address of track 1   //114  chords
-  0xAD, 0x00,                   // Address of track 2   //173  bar
-  0xB4, 0x00,                   // Address of track 3   //180  bass
-  0xFA, 0x00,                   // Address of track 4   //250  drums
-  0x01, 0x01,                   // Address of track 5   //257  pair
+  0x46, 0x00,                   // Address of track 1   //70  chords
+  0x71, 0x00,                   // Address of track 2   //113  bar
+  0x78, 0x00,                   // Address of track 3   //120  bass
+  0xAE, 0x00,                   // Address of track 4   //174  drums
+  0xB5, 0x00,                   // Address of track 5   //181  pair
+  0xC0, 0x00,                   // Address of track 6   //192  sh0
+  0xCA, 0x00,                   // Address of track 7   //202  sh1
+  0xD1, 0x00,                   // Address of track 8   //209  sh2
+  0xDC, 0x00,                   // Address of track 9   //220  sh3
+  0xE6, 0x00,                   // Address of track 10   //230  sh4
 
   0x00,                         // Channel 0 entry track (lead)
   0x01,                         // Channel 1 entry track (chords)
   0x03,                         // Channel 2 entry track (bass)
   0x04,                         // Channel 3 entry track (drums)
 
-  //"Track 0" lead  [114 bytes]
+  //"Track 0" lead  [70 bytes]
   ATM_VOL(MV(44)),
   ATM_SL_VOL(MS(2)),
-  ATM_NOTE_F5,
-  ATM_DELAY(32),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_A4_,
-  ATM_DELAY(16),
-  ATM_NOTE_D5_,
-  ATM_DELAY(16),
-  ATM_NOTE_A5_,
-  ATM_DELAY(16),
-  ATM_NOTE_G5,
-  ATM_DELAY(16),
-  ATM_NOTE_A5_,
-  ATM_DELAY(16),
+  ATM_GOTO(10),   // -> sh4
+  ATM_GOTO(6),   // -> sh0
   ATM_NOTE_A5,
   ATM_DELAY(24),
   ATM_NOTE_C5,
@@ -2640,20 +2196,8 @@ Song gemAir[] = {          // total song in bytes = 285
   ATM_DELAY(16),
   ATM_NOTE_D5,
   ATM_DELAY(16),
-  ATM_NOTE_F5,
-  ATM_DELAY(32),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_A4_,
-  ATM_DELAY(16),
-  ATM_NOTE_D5_,
-  ATM_DELAY(16),
-  ATM_NOTE_A5_,
-  ATM_DELAY(16),
-  ATM_NOTE_G5,
-  ATM_DELAY(16),
-  ATM_NOTE_A5_,
-  ATM_DELAY(16),
+  ATM_GOTO(10),   // -> sh4
+  ATM_GOTO(6),   // -> sh0
   ATM_NOTE_D5_,
   ATM_DELAY(24),
   ATM_NOTE_G5,
@@ -2671,48 +2215,20 @@ Song gemAir[] = {          // total song in bytes = 285
   ATM_NOTE_A5_,
   ATM_DELAY(16),
   ATM_NOTE_G5,
-  ATM_DELAY(16),
-  ATM_NOTE_D5_,
-  ATM_DELAY(16),
-  ATM_NOTE_A5_,
-  ATM_DELAY(16),
-  ATM_NOTE_G5,
-  ATM_DELAY(16),
-  ATM_NOTE_A5_,
-  ATM_DELAY(16),
+  ATM_GOTO(6),   // -> sh0
   ATM_NOTE_D5,
   ATM_DELAY(24),
   ATM_NOTE_F5,
   ATM_DELAY(8),
   ATM_NOTE_A5_,
-  ATM_DELAY(32),
-  ATM_NOTE_F5,
-  ATM_DELAY(16),
-  ATM_NOTE_C5,
-  ATM_DELAY(16),
-  ATM_NOTE_A5,
-  ATM_DELAY(16),
-  ATM_NOTE_C5,
-  ATM_DELAY(16),
+  ATM_GOTO(9),   // -> sh3
   ATM_NOTE_G5,
   ATM_DELAY(24),
   ATM_NOTE_A5_,
   ATM_DELAY(8),
   ATM_NOTE_D5_,
-  ATM_DELAY(32),
-  ATM_NOTE_F5,
-  ATM_DELAY(16),
-  ATM_NOTE_C5,
-  ATM_DELAY(16),
-  ATM_NOTE_A5,
-  ATM_DELAY(16),
-  ATM_NOTE_C5,
-  ATM_DELAY(16),
-  ATM_NOTE_F5,
-  ATM_DELAY(32),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_A4_,
+  ATM_GOTO(9),   // -> sh3
+  ATM_GOTO(10),   // -> sh4
   ATM_DELAY(16),
   ATM_NOTE_F5,
   ATM_DELAY(16),
@@ -2722,7 +2238,7 @@ Song gemAir[] = {          // total song in bytes = 285
   ATM_DELAY(32),
   ATM_GOTO(0),   // -> lead
 
-  //"Track 1" chords  [59 bytes]
+  //"Track 1" chords  [43 bytes]
   ATM_VOL(MV(24)),
   ATM_SL_VOL(MS(1)),
   ATM_ARP(0x43, 0x25),
@@ -2730,12 +2246,7 @@ Song gemAir[] = {          // total song in bytes = 285
   ATM_DELAY(64),
   ATM_NOTE_D3_,
   ATM_DELAY(64),
-  ATM_NOTE_F3,
-  ATM_DELAY(64),
-  ATM_ARP(0x34, 0x25),
-  ATM_NOTE_G3,
-  ATM_DELAY(64),
-  ATM_ARP(0x43, 0x25),
+  ATM_GOTO(8),   // -> sh2
   ATM_NOTE_A3_,
   ATM_DELAY(64),
   ATM_NOTE_D3_,
@@ -2744,12 +2255,7 @@ Song gemAir[] = {          // total song in bytes = 285
   ATM_NOTE_C4,
   ATM_DELAY(64),
   ATM_ARP(0x43, 0x25),
-  ATM_NOTE_F3,
-  ATM_DELAY(64),
-  ATM_ARP(0x34, 0x25),
-  ATM_NOTE_G3,
-  ATM_DELAY(64),
-  ATM_ARP(0x43, 0x25),
+  ATM_GOTO(8),   // -> sh2
   ATM_NOTE_D3_,
   ATM_DELAY(64),
   ATM_NOTE_A3_,
@@ -2775,35 +2281,27 @@ Song gemAir[] = {          // total song in bytes = 285
   ATM_DELAY(16),
   ATM_RETURN,
 
-  //"Track 3" bass  [70 bytes]
+  //"Track 3" bass  [54 bytes]
   ATM_VOL(MV(56)),
   ATM_SL_VOL(MS(2)),
   ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(5),
-  ATM_GOTO(2),   // -> bar
+  ATM_GOTO(7),   // -> sh1
   ATM_SET_TRA((uint8_t)-5),
   ATM_GOTO(2),   // -> bar
   ATM_SET_TRA((uint8_t)-3),
   ATM_GOTO(2),   // -> bar
   ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(5),
-  ATM_GOTO(2),   // -> bar
+  ATM_GOTO(7),   // -> sh1
   ATM_SET_TRA(2),
   ATM_GOTO(2),   // -> bar
   ATM_SET_TRA((uint8_t)-5),
   ATM_GOTO(2),   // -> bar
   ATM_SET_TRA((uint8_t)-3),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(5),
-  ATM_GOTO(2),   // -> bar
+  ATM_GOTO(7),   // -> sh1
   ATM_SET_TRA(0),
   ATM_GOTO(2),   // -> bar
   ATM_SET_TRA((uint8_t)-5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(5),
-  ATM_GOTO(2),   // -> bar
+  ATM_GOTO(7),   // -> sh1
   ATM_SET_TRA((uint8_t)-5),
   ATM_GOTO(2),   // -> bar
   ATM_SET_TRA(0),
@@ -2826,124 +2324,88 @@ Song gemAir[] = {          // total song in bytes = 285
   ATM_DELAY(16),
   ATM_RETURN,
 
+  //"Track 6" sh0  [10 bytes]
+  ATM_DELAY(16),
+  ATM_NOTE_D5_,
+  ATM_DELAY(16),
+  ATM_NOTE_A5_,
+  ATM_DELAY(16),
+  ATM_NOTE_G5,
+  ATM_DELAY(16),
+  ATM_NOTE_A5_,
+  ATM_DELAY(16),
+  ATM_RETURN,
+
+  //"Track 7" sh1  [7 bytes]
+  ATM_GOTO(2),   // -> bar
+  ATM_SET_TRA(5),
+  ATM_GOTO(2),   // -> bar
+  ATM_RETURN,
+
+  //"Track 8" sh2  [11 bytes]
+  ATM_NOTE_F3,
+  ATM_DELAY(64),
+  ATM_ARP(0x34, 0x25),
+  ATM_NOTE_G3,
+  ATM_DELAY(64),
+  ATM_ARP(0x43, 0x25),
+  ATM_RETURN,
+
+  //"Track 9" sh3  [10 bytes]
+  ATM_DELAY(32),
+  ATM_NOTE_F5,
+  ATM_DELAY(16),
+  ATM_NOTE_C5,
+  ATM_DELAY(16),
+  ATM_NOTE_A5,
+  ATM_DELAY(16),
+  ATM_NOTE_C5,
+  ATM_DELAY(16),
+  ATM_RETURN,
+
+  //"Track 10" sh4  [6 bytes]
+  ATM_NOTE_F5,
+  ATM_DELAY(32),
+  ATM_NOTE_D5,
+  ATM_DELAY(16),
+  ATM_NOTE_A4_,
+  ATM_RETURN,
+
 };
 
 // ---------------------------------------------------------------------------
 // Begemmed - in game 9: Ruby Rush
 // E mixolydian, fast and fiery: a ruby-red rush with a galloping bass.
-// 417 bytes
+// 307 bytes
 // ---------------------------------------------------------------------------
-Song gemRuby[] = {          // total song in bytes = 417
-  0x06,                         // Number of tracks
+Song gemRuby[] = {          // total song in bytes = 307
+  0x0E,                         // Number of tracks
   0x00, 0x00,                   // Address of track 0   //0  lead
-  0xD4, 0x00,                   // Address of track 1   //212  chords
-  0x09, 0x01,                   // Address of track 2   //265  bar
-  0x1A, 0x01,                   // Address of track 3   //282  bass
-  0x60, 0x01,                   // Address of track 4   //352  drums
-  0x67, 0x01,                   // Address of track 5   //359  pair
+  0x2E, 0x00,                   // Address of track 1   //46  chords
+  0x51, 0x00,                   // Address of track 2   //81  bar
+  0x56, 0x00,                   // Address of track 3   //86  bass
+  0x88, 0x00,                   // Address of track 4   //136  drums
+  0x8F, 0x00,                   // Address of track 5   //143  pair
+  0x9E, 0x00,                   // Address of track 6   //158  sh0
+  0xAC, 0x00,                   // Address of track 7   //172  sh1
+  0xC7, 0x00,                   // Address of track 8   //199  sh2
+  0xE2, 0x00,                   // Address of track 9   //226  sh3
+  0xE9, 0x00,                   // Address of track 10   //233  sh4
+  0xF9, 0x00,                   // Address of track 11   //249  sh5
+  0x05, 0x01,                   // Address of track 12   //261  sh6
+  0x09, 0x01,                   // Address of track 13   //265  sh7
 
   0x00,                         // Channel 0 entry track (lead)
   0x01,                         // Channel 1 entry track (chords)
   0x03,                         // Channel 2 entry track (bass)
   0x04,                         // Channel 3 entry track (drums)
 
-  //"Track 0" lead  [212 bytes]
+  //"Track 0" lead  [46 bytes]
   ATM_VOL(MV(44)),
   ATM_SL_VOL(MS(2)),
-  ATM_NOTE_E4,
-  ATM_DELAY(8),
-  ATM_NOTE_G4_,
-  ATM_DELAY(8),
-  ATM_NOTE_B4,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(8),
-  ATM_NOTE_B4,
-  ATM_DELAY(8),
-  ATM_NOTE_G4_,
-  ATM_DELAY(8),
-  ATM_NOTE_B4,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(8),
-  ATM_NOTE_A5,
-  ATM_DELAY(8),
-  ATM_NOTE_F5_,
-  ATM_DELAY(8),
-  ATM_NOTE_A5,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_F5_,
-  ATM_DELAY(16),
-  ATM_NOTE_E4,
-  ATM_DELAY(8),
-  ATM_NOTE_G4_,
-  ATM_DELAY(8),
-  ATM_NOTE_B4,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(8),
-  ATM_NOTE_B4,
-  ATM_DELAY(8),
-  ATM_NOTE_G4_,
-  ATM_DELAY(8),
-  ATM_NOTE_B4,
-  ATM_DELAY(16),
-  ATM_NOTE_A5,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(8),
-  ATM_NOTE_C5_,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(8),
-  ATM_NOTE_A5,
-  ATM_DELAY(16),
-  ATM_NOTE_C5_,
-  ATM_DELAY(16),
-  ATM_NOTE_E4,
-  ATM_DELAY(8),
-  ATM_NOTE_G4_,
-  ATM_DELAY(8),
-  ATM_NOTE_B4,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(8),
-  ATM_NOTE_B4,
-  ATM_DELAY(8),
-  ATM_NOTE_G4_,
-  ATM_DELAY(8),
-  ATM_NOTE_B4,
-  ATM_DELAY(16),
-  ATM_NOTE_A5,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(8),
-  ATM_NOTE_F5_,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(8),
-  ATM_NOTE_A5,
-  ATM_DELAY(8),
-  ATM_NOTE_F5_,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_A4,
-  ATM_DELAY(8),
-  ATM_NOTE_C5_,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(8),
-  ATM_NOTE_A5,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(8),
-  ATM_NOTE_C5_,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(16),
+  ATM_GOTO(7),   // -> sh1
+  ATM_GOTO(6),   // -> sh0
+  ATM_GOTO(8),   // -> sh2
   ATM_NOTE_B5,
   ATM_DELAY(8),
   ATM_NOTE_F5_,
@@ -2956,100 +2418,18 @@ Song gemRuby[] = {          // total song in bytes = 417
   ATM_DELAY(16),
   ATM_NOTE_D5,
   ATM_DELAY(16),
-  ATM_NOTE_E4,
-  ATM_DELAY(8),
-  ATM_NOTE_G4_,
-  ATM_DELAY(8),
-  ATM_NOTE_B4,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(8),
-  ATM_NOTE_B4,
-  ATM_DELAY(8),
-  ATM_NOTE_G4_,
-  ATM_DELAY(8),
-  ATM_NOTE_B4,
-  ATM_DELAY(16),
-  ATM_NOTE_D5,
-  ATM_DELAY(8),
-  ATM_NOTE_A5,
-  ATM_DELAY(8),
-  ATM_NOTE_F5_,
-  ATM_DELAY(8),
-  ATM_NOTE_A5,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_F5_,
-  ATM_DELAY(16),
-  ATM_NOTE_E4,
-  ATM_DELAY(8),
-  ATM_NOTE_G4_,
-  ATM_DELAY(8),
-  ATM_NOTE_B4,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(8),
-  ATM_NOTE_B4,
-  ATM_DELAY(8),
-  ATM_NOTE_G4_,
-  ATM_DELAY(8),
-  ATM_NOTE_B4,
-  ATM_DELAY(16),
-  ATM_NOTE_A5,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(8),
+  ATM_GOTO(7),   // -> sh1
   ATM_NOTE_C5_,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(8),
-  ATM_NOTE_A5,
-  ATM_DELAY(16),
-  ATM_NOTE_C5_,
-  ATM_DELAY(16),
-  ATM_NOTE_C5_,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(8),
+  ATM_GOTO(12),   // -> sh6
   ATM_NOTE_G5_,
   ATM_DELAY(8),
   ATM_NOTE_C5_,
   ATM_DELAY(8),
   ATM_NOTE_G5_,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(8),
+  ATM_GOTO(12),   // -> sh6
   ATM_NOTE_G5_,
   ATM_DELAY(16),
-  ATM_NOTE_A5,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(8),
-  ATM_NOTE_F5_,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(8),
-  ATM_NOTE_A5,
-  ATM_DELAY(8),
-  ATM_NOTE_F5_,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_A4,
-  ATM_DELAY(8),
-  ATM_NOTE_C5_,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(8),
-  ATM_NOTE_A5,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(8),
-  ATM_NOTE_C5_,
-  ATM_DELAY(8),
-  ATM_NOTE_E5,
-  ATM_DELAY(16),
+  ATM_GOTO(8),   // -> sh2
   ATM_NOTE_B4,
   ATM_DELAY(16),
   ATM_NOTE_G4_,
@@ -3058,18 +2438,10 @@ Song gemRuby[] = {          // total song in bytes = 417
   ATM_DELAY(32),
   ATM_GOTO(0),   // -> lead
 
-  //"Track 1" chords  [53 bytes]
+  //"Track 1" chords  [35 bytes]
   ATM_VOL(MV(22)),
   ATM_SL_VOL(MS(1)),
-  ATM_ARP(0x43, 0x23),
-  ATM_NOTE_E3,
-  ATM_DELAY(64),
-  ATM_NOTE_D3,
-  ATM_DELAY(64),
-  ATM_NOTE_E3,
-  ATM_DELAY(64),
-  ATM_NOTE_A3,
-  ATM_DELAY(64),
+  ATM_GOTO(11),   // -> sh5
   ATM_NOTE_E3,
   ATM_DELAY(64),
   ATM_NOTE_D3,
@@ -3079,15 +2451,7 @@ Song gemRuby[] = {          // total song in bytes = 417
   ATM_ARP(0x34, 0x23),
   ATM_NOTE_B3,
   ATM_DELAY(64),
-  ATM_ARP(0x43, 0x23),
-  ATM_NOTE_E3,
-  ATM_DELAY(64),
-  ATM_NOTE_D3,
-  ATM_DELAY(64),
-  ATM_NOTE_E3,
-  ATM_DELAY(64),
-  ATM_NOTE_A3,
-  ATM_DELAY(64),
+  ATM_GOTO(11),   // -> sh5
   ATM_ARP(0x34, 0x23),
   ATM_NOTE_C4_,
   ATM_DELAY(64),
@@ -3100,50 +2464,28 @@ Song gemRuby[] = {          // total song in bytes = 417
   ATM_DELAY(64),
   ATM_GOTO(1),   // -> chords
 
-  //"Track 2" bar  [17 bytes]
-  ATM_NOTE_E3,
-  ATM_DELAY(8),
-  ATM_NOTE_E3,
-  ATM_DELAY(8),
-  ATM_NOTE_E4,
-  ATM_DELAY(8),
-  ATM_NOTE_E3,
-  ATM_DELAY(8),
-  ATM_NOTE_E3,
-  ATM_DELAY(8),
-  ATM_NOTE_E3,
-  ATM_DELAY(8),
-  ATM_NOTE_E4,
-  ATM_DELAY(8),
-  ATM_NOTE_E3,
-  ATM_DELAY(8),
+  //"Track 2" bar  [5 bytes]
+  ATM_GOTO(13),   // -> sh7
+  ATM_GOTO(13),   // -> sh7
   ATM_RETURN,
 
-  //"Track 3" bass  [70 bytes]
+  //"Track 3" bass  [50 bytes]
   ATM_VOL(MV(56)),
   ATM_SL_VOL(MS(2)),
   ATM_SET_TRA(0),
   ATM_GOTO(2),   // -> bar
   ATM_SET_TRA((uint8_t)-2),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
+  ATM_GOTO(9),   // -> sh3
   ATM_SET_TRA(5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
+  ATM_GOTO(9),   // -> sh3
   ATM_SET_TRA((uint8_t)-2),
   ATM_GOTO(2),   // -> bar
   ATM_SET_TRA(5),
   ATM_GOTO(2),   // -> bar
   ATM_SET_TRA((uint8_t)-5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
+  ATM_GOTO(9),   // -> sh3
   ATM_SET_TRA((uint8_t)-2),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
+  ATM_GOTO(9),   // -> sh3
   ATM_SET_TRA(5),
   ATM_GOTO(2),   // -> bar
   ATM_SET_TRA((uint8_t)-3),
@@ -3151,9 +2493,7 @@ Song gemRuby[] = {          // total song in bytes = 417
   ATM_SET_TRA((uint8_t)-2),
   ATM_GOTO(2),   // -> bar
   ATM_SET_TRA(5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
+  ATM_GOTO(9),   // -> sh3
   ATM_GOTO(3),   // -> bass
 
   //"Track 4" drums  [7 bytes]
@@ -3161,25 +2501,9 @@ Song gemRuby[] = {          // total song in bytes = 417
   ATM_REPEAT(31, 5),   // 32x pair
   ATM_GOTO(4),   // -> drums
 
-  //"Track 5" pair  [41 bytes]
-  ATM_VOL(MV(48)),
-  ATM_SL_VOL(MS(12)),
-  ATM_DELAY(4),
-  ATM_VOL(MV(16)),
-  ATM_SL_VOL(MS(12)),
-  ATM_DELAY(4),
-  ATM_VOL(MV(28)),
-  ATM_SL_VOL(MS(6)),
-  ATM_DELAY(4),
-  ATM_VOL(MV(48)),
-  ATM_SL_VOL(MS(12)),
-  ATM_DELAY(4),
-  ATM_VOL(MV(16)),
-  ATM_SL_VOL(MS(12)),
-  ATM_DELAY(4),
-  ATM_VOL(MV(28)),
-  ATM_SL_VOL(MS(6)),
-  ATM_DELAY(4),
+  //"Track 5" pair  [15 bytes]
+  ATM_GOTO(10),   // -> sh4
+  ATM_GOTO(10),   // -> sh4
   ATM_VOL(MV(16)),
   ATM_SL_VOL(MS(12)),
   ATM_DELAY(4),
@@ -3188,78 +2512,153 @@ Song gemRuby[] = {          // total song in bytes = 417
   ATM_DELAY(4),
   ATM_RETURN,
 
+  //"Track 6" sh0  [14 bytes]
+  ATM_NOTE_E4,
+  ATM_DELAY(8),
+  ATM_NOTE_G4_,
+  ATM_DELAY(8),
+  ATM_NOTE_B4,
+  ATM_GOTO(12),   // -> sh6
+  ATM_NOTE_B4,
+  ATM_DELAY(8),
+  ATM_NOTE_G4_,
+  ATM_DELAY(8),
+  ATM_NOTE_B4,
+  ATM_DELAY(16),
+  ATM_RETURN,
+
+  //"Track 7" sh1  [27 bytes]
+  ATM_GOTO(6),   // -> sh0
+  ATM_NOTE_D5,
+  ATM_DELAY(8),
+  ATM_NOTE_A5,
+  ATM_DELAY(8),
+  ATM_NOTE_F5_,
+  ATM_DELAY(8),
+  ATM_NOTE_A5,
+  ATM_DELAY(8),
+  ATM_NOTE_D5,
+  ATM_DELAY(16),
+  ATM_NOTE_F5_,
+  ATM_DELAY(16),
+  ATM_GOTO(6),   // -> sh0
+  ATM_NOTE_A5,
+  ATM_GOTO(12),   // -> sh6
+  ATM_NOTE_C5_,
+  ATM_GOTO(12),   // -> sh6
+  ATM_NOTE_A5,
+  ATM_DELAY(16),
+  ATM_NOTE_C5_,
+  ATM_DELAY(16),
+  ATM_RETURN,
+
+  //"Track 8" sh2  [27 bytes]
+  ATM_NOTE_A5,
+  ATM_DELAY(8),
+  ATM_NOTE_D5,
+  ATM_DELAY(8),
+  ATM_NOTE_F5_,
+  ATM_DELAY(8),
+  ATM_NOTE_D5,
+  ATM_DELAY(8),
+  ATM_NOTE_A5,
+  ATM_DELAY(8),
+  ATM_NOTE_F5_,
+  ATM_DELAY(8),
+  ATM_NOTE_D5,
+  ATM_DELAY(16),
+  ATM_NOTE_A4,
+  ATM_DELAY(8),
+  ATM_NOTE_C5_,
+  ATM_GOTO(12),   // -> sh6
+  ATM_NOTE_A5,
+  ATM_GOTO(12),   // -> sh6
+  ATM_NOTE_C5_,
+  ATM_DELAY(8),
+  ATM_NOTE_E5,
+  ATM_DELAY(16),
+  ATM_RETURN,
+
+  //"Track 9" sh3  [7 bytes]
+  ATM_GOTO(2),   // -> bar
+  ATM_SET_TRA(0),
+  ATM_GOTO(2),   // -> bar
+  ATM_RETURN,
+
+  //"Track 10" sh4  [16 bytes]
+  ATM_VOL(MV(48)),
+  ATM_SL_VOL(MS(12)),
+  ATM_DELAY(4),
+  ATM_VOL(MV(16)),
+  ATM_SL_VOL(MS(12)),
+  ATM_DELAY(4),
+  ATM_VOL(MV(28)),
+  ATM_SL_VOL(MS(6)),
+  ATM_DELAY(4),
+  ATM_RETURN,
+
+  //"Track 11" sh5  [12 bytes]
+  ATM_ARP(0x43, 0x23),
+  ATM_NOTE_E3,
+  ATM_DELAY(64),
+  ATM_NOTE_D3,
+  ATM_DELAY(64),
+  ATM_NOTE_E3,
+  ATM_DELAY(64),
+  ATM_NOTE_A3,
+  ATM_DELAY(64),
+  ATM_RETURN,
+
+  //"Track 12" sh6  [4 bytes]
+  ATM_DELAY(8),
+  ATM_NOTE_E5,
+  ATM_DELAY(8),
+  ATM_RETURN,
+
+  //"Track 13" sh7  [9 bytes]
+  ATM_NOTE_E3,
+  ATM_DELAY(8),
+  ATM_NOTE_E3,
+  ATM_DELAY(8),
+  ATM_NOTE_E4,
+  ATM_DELAY(8),
+  ATM_NOTE_E3,
+  ATM_DELAY(8),
+  ATM_RETURN,
+
 };
 
 // ---------------------------------------------------------------------------
 // Begemmed - in game 10: Last Spark
 // C minor, tense and urgent: the clock is running out, keep matching!
-// 397 bytes
+// 305 bytes
 // ---------------------------------------------------------------------------
-Song gemSpark[] = {          // total song in bytes = 397
-  0x06,                         // Number of tracks
+Song gemSpark[] = {          // total song in bytes = 305
+  0x0E,                         // Number of tracks
   0x00, 0x00,                   // Address of track 0   //0  lead
-  0xC2, 0x00,                   // Address of track 1   //194  chords
-  0x03, 0x01,                   // Address of track 2   //259  bar
-  0x10, 0x01,                   // Address of track 3   //272  bass
-  0x56, 0x01,                   // Address of track 4   //342  drums
-  0x5D, 0x01,                   // Address of track 5   //349  pair
+  0x33, 0x00,                   // Address of track 1   //51  chords
+  0x54, 0x00,                   // Address of track 2   //84  bar
+  0x61, 0x00,                   // Address of track 3   //97  bass
+  0x8F, 0x00,                   // Address of track 4   //143  drums
+  0x96, 0x00,                   // Address of track 5   //150  pair
+  0xA5, 0x00,                   // Address of track 6   //165  sh0
+  0xC0, 0x00,                   // Address of track 7   //192  sh1
+  0xCE, 0x00,                   // Address of track 8   //206  sh2
+  0xD9, 0x00,                   // Address of track 9   //217  sh3
+  0xE4, 0x00,                   // Address of track 10   //228  sh4
+  0xF2, 0x00,                   // Address of track 11   //242  sh5
+  0xFE, 0x00,                   // Address of track 12   //254  sh6
+  0x05, 0x01,                   // Address of track 13   //261  sh7
 
   0x00,                         // Channel 0 entry track (lead)
   0x01,                         // Channel 1 entry track (chords)
   0x03,                         // Channel 2 entry track (bass)
   0x04,                         // Channel 3 entry track (drums)
 
-  //"Track 0" lead  [194 bytes]
+  //"Track 0" lead  [51 bytes]
   ATM_VOL(MV(44)),
   ATM_SL_VOL(MS(2)),
-  ATM_NOTE_C4,
-  ATM_DELAY(8),
-  ATM_NOTE_C4,
-  ATM_DELAY(8),
-  ATM_NOTE_G4,
-  ATM_DELAY(8),
-  ATM_NOTE_D4_,
-  ATM_DELAY(8),
-  ATM_NOTE_C4,
-  ATM_DELAY(16),
-  ATM_NOTE_G4,
-  ATM_DELAY(16),
-  ATM_NOTE_C5,
-  ATM_DELAY(8),
-  ATM_NOTE_C5,
-  ATM_DELAY(8),
-  ATM_NOTE_D5_,
-  ATM_DELAY(8),
-  ATM_NOTE_G5_,
-  ATM_DELAY(8),
-  ATM_NOTE_D5_,
-  ATM_DELAY(16),
-  ATM_NOTE_C5,
-  ATM_DELAY(16),
-  ATM_NOTE_A4_,
-  ATM_DELAY(8),
-  ATM_NOTE_A4_,
-  ATM_DELAY(8),
-  ATM_NOTE_F5,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(8),
-  ATM_NOTE_A4_,
-  ATM_DELAY(16),
-  ATM_NOTE_F4,
-  ATM_DELAY(16),
-  ATM_NOTE_A4_,
-  ATM_DELAY(8),
-  ATM_NOTE_A4_,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(8),
-  ATM_NOTE_G5,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_A4_,
-  ATM_DELAY(16),
+  ATM_GOTO(6),   // -> sh0
   ATM_NOTE_G4,
   ATM_DELAY(8),
   ATM_NOTE_G4,
@@ -3271,115 +2670,12 @@ Song gemSpark[] = {          // total song in bytes = 397
   ATM_NOTE_C5,
   ATM_DELAY(16),
   ATM_NOTE_G4,
-  ATM_DELAY(16),
-  ATM_NOTE_C5,
-  ATM_DELAY(8),
-  ATM_NOTE_C5,
-  ATM_DELAY(8),
-  ATM_NOTE_D5_,
-  ATM_DELAY(8),
-  ATM_NOTE_G5_,
-  ATM_DELAY(8),
-  ATM_NOTE_D5_,
-  ATM_DELAY(16),
-  ATM_NOTE_C5,
-  ATM_DELAY(16),
-  ATM_NOTE_C5,
-  ATM_DELAY(8),
-  ATM_NOTE_C5,
-  ATM_DELAY(8),
-  ATM_NOTE_F5,
-  ATM_DELAY(8),
-  ATM_NOTE_G5_,
-  ATM_DELAY(8),
-  ATM_NOTE_F5,
-  ATM_DELAY(16),
-  ATM_NOTE_C5,
-  ATM_DELAY(16),
-  ATM_NOTE_A4_,
-  ATM_DELAY(8),
-  ATM_NOTE_A4_,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(8),
-  ATM_NOTE_G5,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_A4_,
-  ATM_DELAY(16),
-  ATM_NOTE_C4,
-  ATM_DELAY(8),
-  ATM_NOTE_C4,
-  ATM_DELAY(8),
-  ATM_NOTE_G4,
-  ATM_DELAY(8),
-  ATM_NOTE_D4_,
-  ATM_DELAY(8),
-  ATM_NOTE_C4,
-  ATM_DELAY(16),
-  ATM_NOTE_G4,
-  ATM_DELAY(16),
-  ATM_NOTE_C5,
-  ATM_DELAY(8),
-  ATM_NOTE_C5,
-  ATM_DELAY(8),
-  ATM_NOTE_D5_,
-  ATM_DELAY(8),
-  ATM_NOTE_G5_,
-  ATM_DELAY(8),
-  ATM_NOTE_D5_,
-  ATM_DELAY(16),
-  ATM_NOTE_C5,
-  ATM_DELAY(16),
-  ATM_NOTE_A4_,
-  ATM_DELAY(8),
-  ATM_NOTE_A4_,
-  ATM_DELAY(8),
-  ATM_NOTE_F5,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(8),
-  ATM_NOTE_A4_,
-  ATM_DELAY(16),
-  ATM_NOTE_F4,
-  ATM_DELAY(16),
-  ATM_NOTE_A4_,
-  ATM_DELAY(8),
-  ATM_NOTE_A4_,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(8),
-  ATM_NOTE_G5,
-  ATM_DELAY(8),
-  ATM_NOTE_D5,
-  ATM_DELAY(16),
-  ATM_NOTE_A4_,
-  ATM_DELAY(16),
-  ATM_NOTE_C5,
-  ATM_DELAY(8),
-  ATM_NOTE_C5,
-  ATM_DELAY(8),
-  ATM_NOTE_F5,
-  ATM_DELAY(8),
-  ATM_NOTE_G5_,
-  ATM_DELAY(8),
-  ATM_NOTE_F5,
-  ATM_DELAY(16),
-  ATM_NOTE_C5,
-  ATM_DELAY(16),
-  ATM_NOTE_C5,
-  ATM_DELAY(8),
-  ATM_NOTE_C5,
-  ATM_DELAY(8),
-  ATM_NOTE_D5_,
-  ATM_DELAY(8),
-  ATM_NOTE_G5_,
-  ATM_DELAY(8),
-  ATM_NOTE_D5_,
-  ATM_DELAY(16),
-  ATM_NOTE_C5,
-  ATM_DELAY(16),
+  ATM_GOTO(7),   // -> sh1
+  ATM_GOTO(11),   // -> sh5
+  ATM_GOTO(10),   // -> sh4
+  ATM_GOTO(6),   // -> sh0
+  ATM_GOTO(11),   // -> sh5
+  ATM_GOTO(7),   // -> sh1
   ATM_NOTE_D5,
   ATM_DELAY(8),
   ATM_NOTE_D5,
@@ -3402,45 +2698,21 @@ Song gemSpark[] = {          // total song in bytes = 397
   ATM_DELAY(16),
   ATM_GOTO(0),   // -> lead
 
-  //"Track 1" chords  [65 bytes]
+  //"Track 1" chords  [33 bytes]
   ATM_VOL(MV(20)),
   ATM_SL_VOL(MS(1)),
   ATM_ARP(0x34, 0x22),
+  ATM_GOTO(9),   // -> sh3
   ATM_NOTE_C3,
-  ATM_DELAY(64),
-  ATM_ARP(0x43, 0x22),
-  ATM_NOTE_G3_,
-  ATM_DELAY(64),
-  ATM_NOTE_A3_,
-  ATM_DELAY(64),
-  ATM_ARP(0x34, 0x22),
-  ATM_NOTE_G3,
-  ATM_DELAY(64),
-  ATM_NOTE_C3,
-  ATM_DELAY(64),
-  ATM_ARP(0x43, 0x22),
-  ATM_NOTE_G3_,
-  ATM_DELAY(64),
+  ATM_GOTO(12),   // -> sh6
   ATM_ARP(0x34, 0x22),
   ATM_NOTE_F3,
   ATM_DELAY(64),
   ATM_NOTE_G3,
   ATM_DELAY(64),
-  ATM_NOTE_C3,
-  ATM_DELAY(64),
-  ATM_ARP(0x43, 0x22),
-  ATM_NOTE_G3_,
-  ATM_DELAY(64),
-  ATM_NOTE_A3_,
-  ATM_DELAY(64),
-  ATM_ARP(0x34, 0x22),
-  ATM_NOTE_G3,
-  ATM_DELAY(64),
+  ATM_GOTO(9),   // -> sh3
   ATM_NOTE_F3,
-  ATM_DELAY(64),
-  ATM_ARP(0x43, 0x22),
-  ATM_NOTE_G3_,
-  ATM_DELAY(64),
+  ATM_GOTO(12),   // -> sh6
   ATM_ARP(0x34, 0x22),
   ATM_NOTE_G3,
   ATM_DELAY(64),
@@ -3463,7 +2735,7 @@ Song gemSpark[] = {          // total song in bytes = 397
   ATM_DELAY(8),
   ATM_RETURN,
 
-  //"Track 3" bass  [70 bytes]
+  //"Track 3" bass  [46 bytes]
   ATM_VOL(MV(56)),
   ATM_SL_VOL(MS(2)),
   ATM_SET_TRA(0),
@@ -3471,19 +2743,11 @@ Song gemSpark[] = {          // total song in bytes = 397
   ATM_SET_TRA((uint8_t)-4),
   ATM_GOTO(2),   // -> bar
   ATM_SET_TRA((uint8_t)-2),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
+  ATM_GOTO(8),   // -> sh2
   ATM_SET_TRA((uint8_t)-4),
   ATM_GOTO(2),   // -> bar
   ATM_SET_TRA(5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
+  ATM_GOTO(8),   // -> sh2
   ATM_SET_TRA((uint8_t)-4),
   ATM_GOTO(2),   // -> bar
   ATM_SET_TRA((uint8_t)-2),
@@ -3493,11 +2757,7 @@ Song gemSpark[] = {          // total song in bytes = 397
   ATM_SET_TRA(5),
   ATM_GOTO(2),   // -> bar
   ATM_SET_TRA((uint8_t)-4),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA((uint8_t)-5),
-  ATM_GOTO(2),   // -> bar
-  ATM_SET_TRA(0),
-  ATM_GOTO(2),   // -> bar
+  ATM_GOTO(8),   // -> sh2
   ATM_GOTO(3),   // -> bass
 
   //"Track 4" drums  [7 bytes]
@@ -3505,24 +2765,121 @@ Song gemSpark[] = {          // total song in bytes = 397
   ATM_REPEAT(31, 5),   // 32x pair
   ATM_GOTO(4),   // -> drums
 
-  //"Track 5" pair  [31 bytes]
-  ATM_VOL(MV(48)),
-  ATM_SL_VOL(MS(12)),
-  ATM_DELAY(8),
-  ATM_VOL(MV(14)),
-  ATM_SL_VOL(MS(12)),
-  ATM_DELAY(4),
+  //"Track 5" pair  [15 bytes]
+  ATM_GOTO(13),   // -> sh7
   ATM_VOL(MV(48)),
   ATM_SL_VOL(MS(12)),
   ATM_DELAY(4),
-  ATM_VOL(MV(48)),
-  ATM_SL_VOL(MS(12)),
-  ATM_DELAY(8),
-  ATM_VOL(MV(14)),
-  ATM_SL_VOL(MS(12)),
-  ATM_DELAY(4),
+  ATM_GOTO(13),   // -> sh7
   ATM_VOL(MV(28)),
   ATM_SL_VOL(MS(6)),
+  ATM_DELAY(4),
+  ATM_RETURN,
+
+  //"Track 6" sh0  [27 bytes]
+  ATM_NOTE_C4,
+  ATM_DELAY(8),
+  ATM_NOTE_C4,
+  ATM_DELAY(8),
+  ATM_NOTE_G4,
+  ATM_DELAY(8),
+  ATM_NOTE_D4_,
+  ATM_DELAY(8),
+  ATM_NOTE_C4,
+  ATM_DELAY(16),
+  ATM_NOTE_G4,
+  ATM_GOTO(7),   // -> sh1
+  ATM_NOTE_A4_,
+  ATM_DELAY(8),
+  ATM_NOTE_A4_,
+  ATM_DELAY(8),
+  ATM_NOTE_F5,
+  ATM_DELAY(8),
+  ATM_NOTE_D5,
+  ATM_DELAY(8),
+  ATM_NOTE_A4_,
+  ATM_DELAY(16),
+  ATM_NOTE_F4,
+  ATM_GOTO(10),   // -> sh4
+  ATM_RETURN,
+
+  //"Track 7" sh1  [14 bytes]
+  ATM_DELAY(16),
+  ATM_NOTE_C5,
+  ATM_DELAY(8),
+  ATM_NOTE_C5,
+  ATM_DELAY(8),
+  ATM_NOTE_D5_,
+  ATM_DELAY(8),
+  ATM_NOTE_G5_,
+  ATM_DELAY(8),
+  ATM_NOTE_D5_,
+  ATM_DELAY(16),
+  ATM_NOTE_C5,
+  ATM_DELAY(16),
+  ATM_RETURN,
+
+  //"Track 8" sh2  [11 bytes]
+  ATM_GOTO(2),   // -> bar
+  ATM_SET_TRA((uint8_t)-5),
+  ATM_GOTO(2),   // -> bar
+  ATM_SET_TRA(0),
+  ATM_GOTO(2),   // -> bar
+  ATM_RETURN,
+
+  //"Track 9" sh3  [11 bytes]
+  ATM_NOTE_C3,
+  ATM_GOTO(12),   // -> sh6
+  ATM_NOTE_A3_,
+  ATM_DELAY(64),
+  ATM_ARP(0x34, 0x22),
+  ATM_NOTE_G3,
+  ATM_DELAY(64),
+  ATM_RETURN,
+
+  //"Track 10" sh4  [14 bytes]
+  ATM_DELAY(16),
+  ATM_NOTE_A4_,
+  ATM_DELAY(8),
+  ATM_NOTE_A4_,
+  ATM_DELAY(8),
+  ATM_NOTE_D5,
+  ATM_DELAY(8),
+  ATM_NOTE_G5,
+  ATM_DELAY(8),
+  ATM_NOTE_D5,
+  ATM_DELAY(16),
+  ATM_NOTE_A4_,
+  ATM_DELAY(16),
+  ATM_RETURN,
+
+  //"Track 11" sh5  [12 bytes]
+  ATM_NOTE_C5,
+  ATM_DELAY(8),
+  ATM_NOTE_C5,
+  ATM_DELAY(8),
+  ATM_NOTE_F5,
+  ATM_DELAY(8),
+  ATM_NOTE_G5_,
+  ATM_DELAY(8),
+  ATM_NOTE_F5,
+  ATM_DELAY(16),
+  ATM_NOTE_C5,
+  ATM_RETURN,
+
+  //"Track 12" sh6  [7 bytes]
+  ATM_DELAY(64),
+  ATM_ARP(0x43, 0x22),
+  ATM_NOTE_G3_,
+  ATM_DELAY(64),
+  ATM_RETURN,
+
+  //"Track 13" sh7  [11 bytes]
+  ATM_VOL(MV(48)),
+  ATM_SL_VOL(MS(12)),
+  ATM_DELAY(8),
+  ATM_VOL(MV(14)),
+  ATM_SL_VOL(MS(12)),
   ATM_DELAY(4),
   ATM_RETURN,
 
@@ -3627,7 +2984,7 @@ void musicUpdate()
   {
     if (gameState == STATE_GAME_OVER) want = MUSIC_OVER;
     else if (gameState >= STATE_GAME_PLAYING) want = gameTune;
-    else if (gameState != STATE_MENU_INTRO) want = MUSIC_TITLE;
+    else if (gameState != STATE_MENU_INTRO || introLetter > INTRO_LETTERS) want = MUSIC_TITLE;
   }
   if (want != musicId) { musicPlay(want); musicTime = 0; }
   else if (gameState == STATE_GAME_PLAYING && ++musicTime > 5400)

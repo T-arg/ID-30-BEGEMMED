@@ -79,6 +79,8 @@ byte flickerPlace = 0;
 byte testingSwitch;
 byte gameMode = GAME_MODE_EASY;
 
+#define INTRO_DIV 2
+#include "arduboy_intro.h"
 #include "music.h"
 
 #endif

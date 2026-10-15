@@ -6,8 +6,10 @@
 
 void stateMenuIntro()
 {
+  if (!arduboyIntro()) return;
   globalCounter++;
   sprites.drawSelfMasked(49, 20, T_arg, 0);
+  drawTwinkles(49, 20, globalCounter);
   if (globalCounter > 180)
   {
     globalCounter = 0;
@@ -60,12 +62,17 @@ void stateMenuSoundfx()
 byte jbRow = 0;
 byte jbNr[2];                                  // MUSIC 0..11, SNDFX 0..8
 
+// little arrows left and right of the number (2 x 3 pixels, frame 0 points left, frame 1 right)
+const unsigned char PROGMEM jbArrow[] = { 2, 8, 0x02, 0x07, 0x07, 0x02 };
+
 void stateMenuJbox()
 {
   sprites.drawSelfMasked(33, 4, title, 0);
   for (byte i = 0; i < 2; i++)
   {
     byte y = 28 + 16 * i;
+    sprites.drawSelfMasked(75, y + 3, jbArrow, 0);
+    sprites.drawSelfMasked(94, y + 3, jbArrow, 1);
     sprites.drawSelfMasked(35, y, jboxWords, i);
     if (jbRow != i || (arduboy.frameCount & 16))              // the selected number blinks
     {
@@ -76,8 +83,8 @@ void stateMenuJbox()
   byte n = jbRow ? JBOX_SFX : JBOX_MUSIC;
   if (arduboy.justPressed(UP_BUTTON)) jbRow = 0;
   if (arduboy.justPressed(DOWN_BUTTON)) jbRow = 1;
-  if (arduboy.justPressed(LEFT_BUTTON)) jbNr[jbRow] = (jbNr[jbRow] + 1) % n;
-  if (arduboy.justPressed(RIGHT_BUTTON)) jbNr[jbRow] = (jbNr[jbRow] + n - 1) % n;
+  if (arduboy.justPressed(RIGHT_BUTTON)) jbNr[jbRow] = (jbNr[jbRow] + 1) % n;
+  if (arduboy.justPressed(LEFT_BUTTON)) jbNr[jbRow] = (jbNr[jbRow] + n - 1) % n;
   if (arduboy.justPressed(B_BUTTON) && arduboy.audio.enabled())
   {
     if (jbRow) sfx((const uint8_t *)pgm_read_word(&sfxList[jbNr[1]]));
